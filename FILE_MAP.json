@@ -1,0 +1,16 @@
+{
+  "helpers/extract_sb.py": "src/policymosaic/firmware_helper.py",
+  "reverse-sandbox/filters.py": "src/policymosaic/filter_catalog.py",
+  "reverse-sandbox/modifiers.py": "src/policymosaic/modifier_catalog.py",
+  "reverse-sandbox/operation_node.py": "src/policymosaic/rule_graph.py",
+  "reverse-sandbox/regex_parser.py": "src/policymosaic/regex_bytecode.py",
+  "reverse-sandbox/reverse_sandbox.py": "src/policymosaic/profile_decoder.py",
+  "reverse-sandbox/reverse_string.py": "src/policymosaic/string_bytecode.py",
+  "reverse-sandbox/sandbox_filter.py": "src/policymosaic/filter_decoder.py",
+  "reverse-sandbox/sandbox_regex.py": "src/policymosaic/regex_graph.py",
+  "LICENSE": "LICENSE",
+  "reverse-sandbox/filters.json": "src/policymosaic/data/filters.json",
+  "reverse-sandbox/logger.config": "src/policymosaic/data/logger.config",
+  "reverse-sandbox/modifiers.json": "src/policymosaic/data/modifiers.json",
+  "reverse-sandbox/modifiers_functions.json": "src/policymosaic/data/modifiers_functions.json"
+}

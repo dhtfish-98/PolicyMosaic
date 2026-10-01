@@ -1,0 +1,29 @@
+{
+  "project": "PolicyMosaic",
+  "status": "PASS",
+  "python": "3.12.13",
+  "baseline_commit": "3dc6582f7f7d137adaa115f635eb5fc8e8da91f5",
+  "upstream_source_bytes_unchanged": true,
+  "upstream_tests_passed": 0,
+  "upstream_tests_available": false,
+  "derivative_tests_passed": 40,
+  "differential_observations": 956,
+  "differential_mismatches": 0,
+  "wheel_and_sdist_build": "PASS",
+  "independent_wheel_consumer": "PASS",
+  "installed_cli_help": "PASS",
+  "packaged_source_hashes": "verified outside package in group delivery manifest",
+  "ci_remote_run": "OPEN: workflow is provided; local workflow-equivalent checks passed; GitHub run awaits publication",
+  "OPEN": [
+    "real devices and firmware collections",
+    "interactive or external service workflows"
+  ],
+  "commands": [
+    "python -m pytest -q -p no:cacheprovider",
+    "python checks/compare_upstream.py --upstream-root PINNED_UPSTREAM",
+    "python -m build",
+    "python -m venv .consumer",
+    ".consumer/bin/python -m pip install dist/*.whl",
+    ".consumer/bin/python -I checks/consume_installation.py"
+  ]
+}
