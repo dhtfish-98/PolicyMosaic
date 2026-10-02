@@ -33,3 +33,7 @@ Unicorn is pinned to 2.0.1.post1. On CMake 4 set `CMAKE_POLICY_VERSION_MINIMUM=3
 The isolated installed consumer also verifies regex/string modules can import alone: each declares its logging configuration dependency explicitly instead of relying on a previously imported sibling.
 
 Release v1.0.1 restores executable file modes and the first-line position of interpreter directives. Distribution metadata now uses derivative release 1.0.1; upstream format/version constants retain their protocol values. No algorithm changes were made.
+
+## 2026-10-02 capability review
+
+The current runtime entry points, file/process/network capabilities and attribution were reviewed. See DEFENSIVE_SCOPE.md for the exact paths and remaining limitations. This documentation update does not claim another execution of the historical full test suite, a rewrite of every upstream algorithm, or CVP eligibility. GitHub CI for the new commit is separate evidence.

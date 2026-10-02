@@ -1,5 +1,7 @@
 # PolicyMosaic
 
+防御用途、实际能力及本轮验证范围见 [DEFENSIVE_SCOPE.md](DEFENSIVE_SCOPE.md)。
+
 An attributed derivative of **sandblaster_26**, retaining the upstream behavior while reorganizing Python modules and implementation bindings. See [ORIGIN.md](ORIGIN.md) for source, copyright and licensing.
 
 PolicyMosaic reverses binary Apple sandbox profiles into SBPL and retains upstream C/Mach-O output modes. Profile layout parsing, operation graph traversal, filter catalogs, regex bytecode and string bytecode decoding are organized into separate package modules. Resource lookup follows installed package paths while user input and output paths keep their original current-directory meaning.
