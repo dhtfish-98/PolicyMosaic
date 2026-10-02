@@ -296,7 +296,13 @@ print('native boundary PASS')
 
 def test_firmware_native_failure_is_reported_in_parent(monkeypatch):
     monkeypatch.setattr(firmware,'run_tool',lambda *a,**kw:(_ for _ in ()).throw(PolicyFormatError('helper process failed')))
-    with pytest.raises(PolicyFormatError,match='helper process failed'):
+    with pytest.raises(PolicyFormatError,match='native emulation unavailable or incomplete on this host: helper process failed'):
+        firmware._emulate(0x1000,bytes.fromhex('1f2003d5'),'profile')
+
+
+def test_firmware_native_timeout_is_reported_in_parent(monkeypatch):
+    monkeypatch.setattr(firmware,'run_tool',lambda *a,**kw:(_ for _ in ()).throw(PolicyFormatError('helper process timed out')))
+    with pytest.raises(PolicyFormatError,match='native emulation unavailable or incomplete on this host: helper process timed out'):
         firmware._emulate(0x1000,bytes.fromhex('1f2003d5'),'profile')
 
 

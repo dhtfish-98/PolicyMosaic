@@ -1,10 +1,10 @@
-# Current validation — 1.0.2
+# Current validation — 1.0.3
 
 Date: 2026-10-02. Python 3.12.13, macOS ARM64.
 
 ## Evidence
 
-- **150 tests passed**: 40 retained contracts plus 110 current boundary/process/format tests. Tests use owned finite binary fixtures; they do not query a device or download firmware.
+- **151 tests passed**: 40 retained contracts plus 111 current boundary/process/format tests. Tests use owned finite binary fixtures; they do not query a device or download firmware.
 - Fixed upstream archive: commit `3dc6582f7f7d137adaa115f635eb5fc8e8da91f5`, tree `1cac93e4419f6de08e6a094cfe2c530dea897696`. The archive's original files are checked separately from decoder outputs/logs.
 - **956 deterministic observations**: 927 equal; 29 exact checked changes. Those changes are 20 incomplete/unknown header cases, 8 incomplete/malformed string cases, and one helper result missing its output path. Every other observation must match; the comparison does not blanket-ignore exceptions.
 - **8 normal SBPL/C reports** independently compared byte for byte against fixed upstream: single profiles, terminal actions, a nonterminal graph and a normal bundle. Every compared report matches. These are finite examples, not coverage of all policy expressions.
@@ -33,7 +33,7 @@ Date: 2026-10-02. Python 3.12.13, macOS ARM64.
 
 The legacy string interpreter silently returned an empty result for the listed incomplete programs; these now fail explicitly. Unknown headers and regex opcodes, zero-length underflow, out-of-range references and graph cycles also fail. The current profile listing uses the computed row stride rather than the old hard-coded 376-byte stride. Fresh per-operation graph copies avoid mutation leaking into another operation. Conversion state uses a scoped context instead of incorrect/shared `base_addr` assignments.
 
-The actual sandboxed local Unicorn probe terminated with SIGILL at `mem_map`. The identical NOP probe and full native boundary test passed on the authorized ordinary host. The test gate was run there; the native-firmware workflow now isolates failures in a child. This is an observed execution-environment limitation, not a firmware/device result. The pinned Unicorn dependency still emits its upstream `pkg_resources` deprecation warning; it is recorded, not hidden.
+The former Unicorn 2.0.1.post1 and current official 2.1.4 both terminated the isolated NOP probe with SIGILL in the restricted local sandbox. Unicorn 2.1.4 passed the same NOP/instruction-loop probe and all 151 tests on the authorized ordinary ARM64 host; the dependency is now pinned to that tested release. The isolated firmware parent reports native emulation as unavailable or incomplete when its child fails or times out. No native crash escapes to the firmware parent. This is an observed execution-environment limitation, not a firmware/device result or a claim that 2.1.4 fixes sandbox compatibility. The official release describes ARM64 distribution and PC guarantees: [upstream release](https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4), [PyPI](https://pypi.org/project/unicorn/2.1.4/).
 
 ## Reproduce
 

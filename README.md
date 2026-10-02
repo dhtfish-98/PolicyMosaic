@@ -2,7 +2,7 @@
 
 PolicyMosaic inspects authorized local Apple sandbox profile bytes and produces an attributed SBPL or C representation for defensive policy review. It is derived from [sandblaster_26](https://github.com/chensokolovsky/sandblaster_26) at the pinned commit in [ORIGIN.md](ORIGIN.md); upstream authorship and the BSD-3 license are retained.
 
-## Current maintenance release: 1.0.2
+## Current maintenance release: 1.0.3
 
 This release rewrites profile input/layout handling, string and regex bytecode records, filter conversion context, report publication, compiler invocation and optional firmware-helper execution. The inherited operation/regex graph reducers receive explicit work and expansion guards, independent regex state and finite graph walks. Their complete semantic rewrite and real firmware/device validation remain **OPEN**.
 

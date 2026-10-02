@@ -36,8 +36,8 @@
     },
     {
       "path": "src/policymosaic/firmware_helper.py",
-      "sha256": "d7445aa01cc5ee12c559322d06a8a1d0442558fcd69b4142dc9ec267ac25a0d6",
-      "lines": 331,
+      "sha256": "601f65d2c5daacfe1bcc1b614730999d81a671346fcaa0dba1153e6aa5a94ac2",
+      "lines": 334,
       "functions": 28,
       "classes": 2,
       "review": "Rewritten subprocess, output, workspace and emulation invocation flow; no real firmware corpus tested."

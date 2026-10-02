@@ -3,13 +3,13 @@ requires=["setuptools==80.10.2", "wheel==0.48.0"]
 build-backend="setuptools.build_meta"
 [project]
 name="policymosaic"
-version="1.0.2"
+version="1.0.3"
 description="PolicyMosaic attributed derivative for offline developer analysis"
 readme="README.md"
 requires-python=">=3.9"
 license="BSD-3-Clause"
 license-files=["LICENSE"]
-dependencies=["tqdm==4.70.1", "unicorn==2.0.1.post1", "setuptools==80.10.2"]
+dependencies=["tqdm==4.70.1", "unicorn==2.1.4", "setuptools==80.10.2"]
 [project.optional-dependencies]
 test=["pytest"]
 [project.scripts]

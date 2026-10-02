@@ -1,10 +1,10 @@
 {
-  "release": "1.0.2",
+  "release": "1.0.3",
   "date": "2026-10-02",
   "python": "3.12.13",
-  "current_tests": 150,
+  "current_tests": 151,
   "retained_contracts": 40,
-  "current_boundary_cases": 110,
+  "current_boundary_cases": 111,
   "source_observations": 956,
   "equal_observations": 927,
   "exact_intentional_changes": 29,
@@ -78,9 +78,14 @@
     "historical_main_link_failure_corrected": true
   },
   "native_environment": {
-    "restricted_sandbox_probe": "SIGILL at Unicorn mem_map; isolated child",
-    "ordinary_authorized_host_probe": "NOP and instruction-loop limits PASS",
-    "real_firmware": "OPEN"
+    "restricted_sandbox_probe": "2.0.1.post1 and 2.1.4: SIGILL (-4) in isolated child",
+    "ordinary_authorized_host_probe": "2.1.4: NOP/instruction-loop limits and all 151 tests PASS",
+    "real_firmware": "OPEN",
+    "dependency": "unicorn==2.1.4",
+    "official_release": "https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4",
+    "official_package": "https://pypi.org/project/unicorn/2.1.4/",
+    "sandbox_compatibility_fixed": false,
+    "parent_failure": "Explicit native emulation unavailable/incomplete; failure/timeouts remain isolated"
   },
   "source_audit": {
     "modules": 15,

@@ -168,9 +168,12 @@ def mosaic_macho_read_data(macho, addr, size):
 def _emulate(address, code, mode):
     if type(address) is not int or not 0 <= address < 2 ** 64 or not isinstance(code, bytes) or not 0 < len(code) <= MAX_NODES * 4 or mode not in ('profile', 'platform'):
         raise PolicyFormatError('invalid emulation request')
-    result = run_tool([sys.executable, '-m', 'policymosaic.emulation_worker',
-                      '--address', str(address), '--code', code.hex(), '--mode', mode],
-                      timeout=10, maximum=4096, text=True)
+    try:
+        result = run_tool([sys.executable, '-m', 'policymosaic.emulation_worker',
+                          '--address', str(address), '--code', code.hex(), '--mode', mode],
+                          timeout=10, maximum=4096, text=True)
+    except PolicyFormatError as error:
+        raise PolicyFormatError('native emulation unavailable or incomplete on this host: ' + str(error)) from error
     try:
         values = json.loads(result)
     except ValueError as error:
