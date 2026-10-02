@@ -1,11 +1,11 @@
 include LICENSE README.md ORIGIN.md VALIDATION.md SYMBOL_MAP.json FILE_MAP.json
-recursive-include src *.py *.json *.config *.codes
+recursive-include src *.py *.json *.config
 recursive-include checks *.py
-recursive-include guides *
-recursive-include EXTERNAL_LICENSES *
 include requirements-test.lock DELIVERY_VALIDATION.json
-recursive-include checks/bins *
 recursive-include .github *.yml
 include .gitignore
 
 
+
+include DEFENSIVE_SCOPE.md CURRENT_VALIDATION.json SOURCE_AUDIT.json
+include checks/BOUNDARY_CHANGES.json

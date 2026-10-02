@@ -1,1 +1,3 @@
-"""Offline Apple sandbox profile analysis; see ORIGIN.md."""
+"""Attributed local sandbox-policy inspection package."""
+import logging
+logging.getLogger(__name__).addHandler(logging.NullHandler())

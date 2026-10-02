@@ -1,0 +1,95 @@
+{
+  "release": "1.0.2",
+  "date": "2026-10-02",
+  "python": "3.12.13",
+  "current_tests": 150,
+  "retained_contracts": 40,
+  "current_boundary_cases": 110,
+  "source_observations": 956,
+  "equal_observations": 927,
+  "exact_intentional_changes": 29,
+  "source_mismatches": 0,
+  "normal_report_comparisons": [
+    {
+      "fixture": 0,
+      "mode": "scheme",
+      "sha256": "1ceb4142be0546dfa4262207887cd69b4196b7d45c456aa15feae15c2c7a9840",
+      "bytes": 63,
+      "status": "PASS"
+    },
+    {
+      "fixture": 0,
+      "mode": "c",
+      "sha256": "7c4e737b58f17b00aadc15188a0225fff9719cb78587f3dfe663f0f9cf10c9fa",
+      "bytes": 16454,
+      "status": "PASS"
+    },
+    {
+      "fixture": 1,
+      "mode": "scheme",
+      "sha256": "4fda255be13375e7a3760ee382ac433d7e3b7a8ecd84e24b4dbb82849ec9c945",
+      "bytes": 63,
+      "status": "PASS"
+    },
+    {
+      "fixture": 1,
+      "mode": "c",
+      "sha256": "09c3069221cade551c23e8dbccda118762931f9cf7409b5b35bc380c7623c23a",
+      "bytes": 16446,
+      "status": "PASS"
+    },
+    {
+      "fixture": 2,
+      "mode": "scheme",
+      "sha256": "02b88f63bea8c3fc658afc9f2f410bebb48a565187cf046d95ec4f29d784a8f2",
+      "bytes": 84,
+      "status": "PASS"
+    },
+    {
+      "fixture": 2,
+      "mode": "c",
+      "sha256": "c1cbf6908065a5fba9a86c276df422a6d3f225f03762a14c034d43d16f0960a0",
+      "bytes": 16606,
+      "status": "PASS"
+    },
+    {
+      "fixture": 3,
+      "mode": "scheme",
+      "sha256": "1ceb4142be0546dfa4262207887cd69b4196b7d45c456aa15feae15c2c7a9840",
+      "bytes": 63,
+      "status": "PASS"
+    },
+    {
+      "fixture": 3,
+      "mode": "c",
+      "sha256": "7c4e737b58f17b00aadc15188a0225fff9719cb78587f3dfe663f0f9cf10c9fa",
+      "bytes": 16454,
+      "status": "PASS"
+    }
+  ],
+  "macho_compile": {
+    "returncode": 0,
+    "size": 50208,
+    "sha256": "cd5fadc3bbb2c12a4fc199daa3d38df46469a1acc723e0803ac30c3450c50a5e",
+    "magic": "cffaedfe",
+    "filetype": 6,
+    "status": "PASS",
+    "generated_binary_executed": false,
+    "historical_main_link_failure_corrected": true
+  },
+  "native_environment": {
+    "restricted_sandbox_probe": "SIGILL at Unicorn mem_map; isolated child",
+    "ordinary_authorized_host_probe": "NOP and instruction-loop limits PASS",
+    "real_firmware": "OPEN"
+  },
+  "source_audit": {
+    "modules": 15,
+    "manifest": "SOURCE_AUDIT.json"
+  },
+  "OPEN": [
+    "Complete inherited operation/regex graph and SBPL/XML formatting semantic rewrite",
+    "Concurrent direct graph library calls",
+    "Actual ipsw firmware download/disassembly/full extraction and real device/runtime policy",
+    "Applicant authorization, identity, organization and actual CVP-affected legitimate task"
+  ]
+}

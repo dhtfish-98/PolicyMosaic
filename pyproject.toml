@@ -3,11 +3,12 @@ requires=["setuptools==80.10.2", "wheel==0.48.0"]
 build-backend="setuptools.build_meta"
 [project]
 name="policymosaic"
-version="1.0.1"
+version="1.0.2"
 description="PolicyMosaic attributed derivative for offline developer analysis"
 readme="README.md"
 requires-python=">=3.9"
-license={file="LICENSE"}
+license="BSD-3-Clause"
+license-files=["LICENSE"]
 dependencies=["tqdm==4.70.1", "unicorn==2.0.1.post1", "setuptools==80.10.2"]
 [project.optional-dependencies]
 test=["pytest"]
@@ -26,3 +27,6 @@ build_py="policymosaic_delivery_build.DeliveryBuild"
 
 [tool.setuptools]
 py-modules=["policymosaic_delivery_build"]
+
+[tool.setuptools.data-files]
+"share/policymosaic"=["ORIGIN.md","DEFENSIVE_SCOPE.md","VALIDATION.md","CURRENT_VALIDATION.json","SOURCE_AUDIT.json"]

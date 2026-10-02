@@ -20,7 +20,8 @@ for audit_variant,audit_location in [('original',audit_options.upstream_root.res
 audit_old,audit_new=audit_observations
 assert len(audit_old)==len(audit_new),(len(audit_old),len(audit_new))
 audit_differences=[{'index':i,'old':old,'new':new} for i,(old,new) in enumerate(zip(audit_old,audit_new)) if old!=new]
-if audit_differences:
+audit_expected=audit_json.loads((audit_root/'checks/BOUNDARY_CHANGES.json').read_text())
+if audit_differences != audit_expected:
     print(audit_json.dumps(audit_differences[:10],ensure_ascii=False,indent=2))
     raise SystemExit(1)
-print(audit_json.dumps({'project':audit_project,'observations':len(audit_old),'mismatches':0,'status':'PASS'}))
+print(audit_json.dumps({'project':audit_project,'observations':len(audit_old),'equal_observations':len(audit_old)-len(audit_expected),'intentional_checked_changes':len(audit_expected),'mismatches':0,'status':'PASS'}))

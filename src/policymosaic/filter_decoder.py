@@ -9,130 +9,77 @@ import logging as mosaic_logging
 import policymosaic.string_bytecode as mosaic_reverse_string
 from policymosaic.filter_catalog import mosaic_Filters as mosaic_Filters
 from policymosaic.modifier_catalog import mosaic_Modifiers as mosaic_Modifiers
-mosaic_logging.config.fileConfig(_name_boundary.resource('logger.config'))
+
 mosaic_logger = mosaic_logging.getLogger(__name__)
+
+from contextlib import contextmanager
+from contextvars import ContextVar
+from policymosaic.safety import PolicyFormatError, read_exact
+_filter_context = ContextVar('policymosaic_filter_context', default=None)
+mosaic_base_addr = 0
 mosaic_keep_builtin_filters = False
+
+
+def _current():
+    context = _filter_context.get()
+    if context is not None:
+        return context
+    return {'base_addr': mosaic_base_addr, 'global_vars': mosaic_global_vars,
+            'regex_list': mosaic_regex_list, 'keep_builtin_filters': mosaic_keep_builtin_filters}
+
+
+@contextmanager
+def _conversion_context(data, keep):
+    token = _filter_context.set({'base_addr': data.base_addr, 'global_vars': data.global_vars,
+                                'regex_list': data.regex_list, 'keep_builtin_filters': keep})
+    try:
+        yield
+    finally:
+        _filter_context.reset(token)
+
+
+def _string_bytes(source, offset):
+    if type(offset) is not int or not 0 <= offset <= 65535:
+        raise PolicyFormatError('invalid string offset')
+    source.seek(_current()['base_addr'] + offset * 8)
+    length = mosaic_struct.unpack('<H', read_exact(source, 2))[0]
+    return read_exact(source, length)
+
+
+def _converter(label):
+    # Catalog labels can select only the fixed conversion entry points.
+    function = globals().get(label) if label.startswith('get_filter_arg_') or label == 'get_none' else None
+    if not callable(function):
+        raise PolicyFormatError('unsupported catalog converter')
+    return function
+
 mosaic_global_vars = []
 
-@_name_boundary.callable_contract({'f': 'mosaic_f_8841b87', 'offset': 'mosaic_offset_482dd5d'}, 'get_filter_arg_string_by_offset')
-def mosaic_get_filter_arg_string_by_offset(mosaic_f_8841b87, mosaic_offset_482dd5d):
-    """Extract string (literal) from given offset."""
-    global base_addr
-    mosaic_f_8841b87.seek(mosaic_offset_482dd5d * 8 + mosaic_base_addr)
-    mosaic_len_7b410ac = mosaic_struct.unpack('<H', mosaic_f_8841b87.read(2))[0]
-    mosaic_f_8841b87.seek(mosaic_offset_482dd5d * 8 + mosaic_base_addr)
-    mosaic_s_f2690b9 = mosaic_f_8841b87.read(2 + mosaic_len_7b410ac)
-    mosaic_ss_48c6ae0 = _name_boundary.attributes(mosaic_reverse_string)['SandboxString']()
-    mosaic_myss_6d56c02 = _name_boundary.attributes(mosaic_ss_48c6ae0)['parse_byte_string'](mosaic_s_f2690b9[2:], mosaic_global_vars)
-    mosaic_actual_string_2edc055 = ''
-    for mosaic_sss_32a1444 in mosaic_myss_6d56c02:
-        mosaic_actual_string_2edc055 = mosaic_actual_string_2edc055 + mosaic_sss_32a1444 + ' '
-    mosaic_actual_string_2edc055 = mosaic_actual_string_2edc055[:-1]
-    mosaic_logger.info('actual string is ' + mosaic_actual_string_2edc055)
-    return mosaic_myss_6d56c02
+def mosaic_get_filter_arg_string_by_offset(f, offset):
+    return mosaic_reverse_string.SandboxString().parse_byte_string(_string_bytes(f, offset), _current()['global_vars'])
 
-@_name_boundary.callable_contract({'f': 'mosaic_f_3295314', 'offset': 'mosaic_offset_3f2f9a9'}, 'get_filter_arg_string_by_offset_with_type')
-def mosaic_get_filter_arg_string_by_offset_with_type(mosaic_f_3295314, mosaic_offset_3f2f9a9):
-    """Extract string from given offset and consider type byte."""
-    global mosaic_keep_builtin_filters
-    global base_addr
-    mosaic_f_3295314.seek(mosaic_offset_3f2f9a9 * 8 + mosaic_base_addr)
-    mosaic_len_8543ff5 = mosaic_struct.unpack('<H', mosaic_f_3295314.read(2))[0]
-    mosaic_f_3295314.seek(mosaic_offset_3f2f9a9 * 8 + mosaic_base_addr)
-    mosaic_s_a932177 = mosaic_f_3295314.read(2 + mosaic_len_8543ff5)
-    mosaic_logger.info('binary string is ' + mosaic_s_a932177.hex())
-    mosaic_ss_8e4319d = _name_boundary.attributes(mosaic_reverse_string)['SandboxString']()
-    mosaic_myss_1e6b84d = _name_boundary.attributes(mosaic_ss_8e4319d)['parse_byte_string'](mosaic_s_a932177[2:], mosaic_global_vars)
-    mosaic_append_2f9994f = 'literal'
-    mosaic_actual_string_4ebdad5 = ''
-    for mosaic_sss_93e08d6 in mosaic_myss_1e6b84d:
-        mosaic_actual_string_4ebdad5 = mosaic_actual_string_4ebdad5 + mosaic_sss_93e08d6 + ' '
-    mosaic_actual_string_4ebdad5 = mosaic_actual_string_4ebdad5[:-1]
-    mosaic_logger.info('actual string is ' + mosaic_actual_string_4ebdad5)
-    return (mosaic_append_2f9994f, mosaic_myss_1e6b84d)
+def mosaic_get_filter_arg_string_by_offset_with_type(f, offset):
+    return ('literal', mosaic_get_filter_arg_string_by_offset(f, offset))
 
-@_name_boundary.callable_contract({'f': 'mosaic_f_c12f5c6', 'offset': 'mosaic_offset_c3f9c40'}, 'get_filter_arg_string_by_offset_no_skip')
-def mosaic_get_filter_arg_string_by_offset_no_skip(mosaic_f_c12f5c6, mosaic_offset_c3f9c40):
-    """Extract string from given offset and ignore type byte."""
-    global base_addr
-    mosaic_f_c12f5c6.seek(mosaic_offset_c3f9c40 * 8 + mosaic_base_addr)
-    mosaic_string_len_ee14a4f = mosaic_struct.unpack('<H', mosaic_f_c12f5c6.read(2))[0] - 1
-    mosaic_res_5a7a76a = ''
+def mosaic_get_filter_arg_string_by_offset_no_skip(f, offset):
+    f.seek(_current()['base_addr'] + offset * 8)
+    length = mosaic_struct.unpack('<H', read_exact(f, 2))[0]
+    if not length:
+        raise PolicyFormatError('zero-length literal record')
     try:
-        mosaic_res_5a7a76a = mosaic_f_c12f5c6.read(mosaic_string_len_ee14a4f).decode()
-    except UnicodeDecodeError:
-        mosaic_res_5a7a76a = 'UNSUPPORTED'
-    return mosaic_res_5a7a76a
+        return read_exact(f, length - 1).decode('utf-8')
+    except UnicodeDecodeError as error:
+        raise PolicyFormatError('invalid UTF-8 literal record') from error
 
-@_name_boundary.callable_contract({'f': 'mosaic_f_69f7ed0', 'offset': 'mosaic_offset_357df10'}, 'get_filter_arg_network_address')
-def mosaic_get_filter_arg_network_address(mosaic_f_69f7ed0, mosaic_offset_357df10):
-    """Convert 4 bytes value to network address (host and port)."""
-    global base_addr
-    mosaic_f_69f7ed0.seek(mosaic_offset_357df10 * 8 + mosaic_base_addr)
-    mosaic_host_396cd44, mosaic_port_3dd95b2 = mosaic_struct.unpack('<HH', mosaic_f_69f7ed0.read(4))
-    mosaic_host_port_string_7d66224 = ''
-    if mosaic_host_396cd44 == 1:
-        mosaic_proto_6023ac5 = 'ip4'
-        mosaic_host_port_string_7d66224 += '*'
-    elif mosaic_host_396cd44 == 2:
-        mosaic_proto_6023ac5 = 'ip6'
-        mosaic_host_port_string_7d66224 += '*'
-    elif mosaic_host_396cd44 == 3:
-        mosaic_proto_6023ac5 = 'ip'
-        mosaic_host_port_string_7d66224 += '*'
-    elif mosaic_host_396cd44 == 5:
-        mosaic_proto_6023ac5 = 'tcp4'
-        mosaic_host_port_string_7d66224 += '*'
-    elif mosaic_host_396cd44 == 6:
-        mosaic_proto_6023ac5 = 'tcp6'
-        mosaic_host_port_string_7d66224 += '*'
-    elif mosaic_host_396cd44 == 7:
-        mosaic_proto_6023ac5 = 'tcp'
-        mosaic_host_port_string_7d66224 += '*'
-    elif mosaic_host_396cd44 == 9:
-        mosaic_proto_6023ac5 = 'udp4'
-        mosaic_host_port_string_7d66224 += '*'
-    elif mosaic_host_396cd44 == 10:
-        mosaic_proto_6023ac5 = 'udp6'
-        mosaic_host_port_string_7d66224 += '*'
-    elif mosaic_host_396cd44 == 11:
-        mosaic_proto_6023ac5 = 'udp'
-        mosaic_host_port_string_7d66224 += '*'
-    elif mosaic_host_396cd44 == 257:
-        mosaic_proto_6023ac5 = 'ip4'
-        mosaic_host_port_string_7d66224 += 'localhost'
-    elif mosaic_host_396cd44 == 258:
-        mosaic_proto_6023ac5 = 'ip6'
-        mosaic_host_port_string_7d66224 += 'localhost'
-    elif mosaic_host_396cd44 == 259:
-        mosaic_proto_6023ac5 = 'ip'
-        mosaic_host_port_string_7d66224 += 'localhost'
-    elif mosaic_host_396cd44 == 261:
-        mosaic_proto_6023ac5 = 'tcp4'
-        mosaic_host_port_string_7d66224 += 'localhost'
-    elif mosaic_host_396cd44 == 262:
-        mosaic_proto_6023ac5 = 'tcp6'
-        mosaic_host_port_string_7d66224 += 'localhost'
-    elif mosaic_host_396cd44 == 263:
-        mosaic_proto_6023ac5 = 'tcp'
-        mosaic_host_port_string_7d66224 += 'localhost'
-    elif mosaic_host_396cd44 == 265:
-        mosaic_proto_6023ac5 = 'udp4'
-        mosaic_host_port_string_7d66224 += 'localhost'
-    elif mosaic_host_396cd44 == 266:
-        mosaic_proto_6023ac5 = 'udp6'
-        mosaic_host_port_string_7d66224 += 'localhost'
-    elif mosaic_host_396cd44 == 267:
-        mosaic_proto_6023ac5 = 'udp'
-        mosaic_host_port_string_7d66224 += 'localhost'
-    else:
-        mosaic_proto_6023ac5 = 'unknown'
-        mosaic_host_port_string_7d66224 += '0x%x' % mosaic_host_396cd44
-    if mosaic_port_3dd95b2 == 0:
-        mosaic_host_port_string_7d66224 += ':*'
-    else:
-        mosaic_host_port_string_7d66224 += ':%d' % mosaic_port_3dd95b2
-    return '%s "%s"' % (mosaic_proto_6023ac5, mosaic_host_port_string_7d66224)
+def mosaic_get_filter_arg_network_address(f, offset):
+    f.seek(_current()['base_addr'] + offset * 8)
+    host, port = mosaic_struct.unpack('<HH', read_exact(f, 4))
+    protocols = {1:'ip4',2:'ip6',3:'ip',5:'tcp4',6:'tcp6',7:'tcp',9:'udp4',10:'udp6',11:'udp'}
+    address = 'localhost' if host & 0x100 else '*'
+    protocol = protocols.get(host & ~0x100)
+    if protocol is None or host not in set(protocols) | {value | 0x100 for value in protocols}:
+        raise PolicyFormatError('unsupported network address tag')
+    return '%s "%s:%s"' % (protocol, address, str(port) if port else '*')
 
 @_name_boundary.callable_contract({'f': 'mosaic_f_09c3986', 'arg': 'mosaic_arg_140236a'}, 'get_filter_arg_integer')
 def mosaic_get_filter_arg_integer(mosaic_f_09c3986, mosaic_arg_140236a):
@@ -153,17 +100,17 @@ def mosaic_get_filter_arg_boolean(mosaic_f_3bc85df, mosaic_arg_f56952a):
         return '#f'
 mosaic_regex_list = []
 
-@_name_boundary.callable_contract({'f': 'mosaic_f_f3a5235', 'regex_id': 'mosaic_regex_id_55160c1'}, 'get_filter_arg_regex_by_id')
-def mosaic_get_filter_arg_regex_by_id(mosaic_f_f3a5235, mosaic_regex_id_55160c1):
-    """Get regular expression by index."""
-    global mosaic_keep_builtin_filters
-    mosaic_return_string_17671d2 = ''
-    global mosaic_regex_list
-    for mosaic_regex_1349fd3 in mosaic_regex_list[mosaic_regex_id_55160c1]:
-        if _name_boundary.attributes(mosaic_re)['match']('^/com\\\\.apple\\\\.sandbox\\$', mosaic_regex_1349fd3) and mosaic_keep_builtin_filters == False:
+def mosaic_get_filter_arg_regex_by_id(f, regex_id):
+    context = _current()
+    expressions = context['regex_list']
+    if type(regex_id) is not int or not 0 <= regex_id < len(expressions):
+        raise PolicyFormatError('regex reference outside catalog')
+    result = []
+    for expression in expressions[regex_id]:
+        if mosaic_re.match(r'^/com\\.apple\\.sandbox\$', expression) and not context['keep_builtin_filters']:
             return '###$$$***'
-        mosaic_return_string_17671d2 += ' #"%s"' % mosaic_regex_1349fd3
-    return mosaic_return_string_17671d2[1:]
+        result.append('#"%s"' % expression)
+    return ' '.join(result)
 
 @_name_boundary.callable_contract({'f': 'mosaic_f_2ba6d87', 'arg': 'mosaic_arg_3f1bc84'}, 'get_filter_arg_ctl')
 def mosaic_get_filter_arg_ctl(mosaic_f_2ba6d87, mosaic_arg_3f1bc84):
@@ -389,91 +336,29 @@ def mosaic_get_filter_arg_necp_client_action(mosaic_f_a291e40, mosaic_arg_f2534b
     return '[UNSUPPORTED]'
 'An array (dictionary) of filter converting items\n\nA filter is identied by a filter id and a filter argument. They are\nboth stored in binary format (numbers) inside the binary sandbox\nprofile file.\n\nEach item in the dictionary is identied by the filter id (used in\nhexadecimal). The value of each item is the string form of the filter id\nand the callback function used to convert the binary form the filter\nargument to a string form.\n\nWhile there is a one-to-one mapping between the binary form and the\nstring form of the filter id, that is not the case for the filter\nargument. To convert the binary form of the filter argument to its\nstring form we use one of the callback functions above; almost all\ncallback function names start with get_filter_arg_.\n'
 
-@_name_boundary.callable_contract({'f': 'mosaic_f_b8c2592', 'sandbox_data': 'mosaic_sandbox_data_b25eafb', 'keep_builtin_filters_arg': 'mosaic_keep_builtin_filters_arg_4950757', 'filter_id': 'mosaic_filter_id_3774e50', 'filter_arg': 'mosaic_filter_arg_29ce1bb'}, 'convert_filter_callback')
-def mosaic_convert_filter_callback(mosaic_f_b8c2592, mosaic_sandbox_data_b25eafb, mosaic_keep_builtin_filters_arg_4950757, mosaic_filter_id_3774e50, mosaic_filter_arg_29ce1bb):
-    """Convert filter from binary form to string.
+def mosaic_convert_filter_callback(f, sandbox_data, keep_builtin_filters_arg, filter_id, filter_arg):
+    entry = mosaic_Filters.get(filter_id)
+    if entry is None or not entry['arg_process_fn']:
+        return None, None
+    with _conversion_context(sandbox_data, keep_builtin_filters_arg):
+        function = _converter(entry['arg_process_fn'])
+        result = function(f, filter_arg)
+        if entry['arg_process_fn'] == 'get_filter_arg_string_by_offset_with_type':
+            suffix, result = result
+            if filter_id == 1 and suffix == 'path': suffix = 'subpath'
+            return entry['name'] + ('-' if entry['name'] else '') + suffix, result
+        if result is None and entry['name'] != 'debug-mode':
+            return None, None
+        return entry['name'], result
 
-    Binary form consists of filter id and filter argument:
-      * filter id is the index inside the filters array above
-      * filter argument is an actual parameter (such as a port number),
-        a file offset or a regular expression index
-
-    The string form consists of the name of the filter (as extracted
-    from the filters array above) and a string representation of the
-    filter argument. The string form of the filter argument if obtained
-    from the binary form through the use of the callback function (as
-    extracted frm the filters array above).
-
-    Function arguments are:
-      f: the binary sandbox profile file
-      regex_list: list of regular expressions
-      filter_id: the binary form of the filter id
-      filter_arg: the binary form of the filter argument
-    """
-    global mosaic_regex_list
-    global mosaic_keep_builtin_filters
-    global mosaic_global_vars
-    global base_addr
-    mosaic_keep_builtin_filters = mosaic_keep_builtin_filters_arg_4950757
-    mosaic_global_vars = _name_boundary.attributes(mosaic_sandbox_data_b25eafb)['global_vars']
-    mosaic_regex_list = _name_boundary.attributes(mosaic_sandbox_data_b25eafb)['regex_list']
-    mosaic_base_addr = _name_boundary.attributes(mosaic_sandbox_data_b25eafb)['base_addr']
-    if not _name_boundary.attributes(mosaic_Filters)['exists'](mosaic_filter_id_3774e50):
-        mosaic_logger.warn('filter_id {} not in keys'.format(mosaic_filter_id_3774e50))
-        return (None, None)
-    mosaic_filter_0a5a785 = _name_boundary.attributes(mosaic_Filters)['get'](mosaic_filter_id_3774e50)
-    if not mosaic_filter_0a5a785['arg_process_fn']:
-        mosaic_logger.warn('no function for filter {}'.format(mosaic_filter_id_3774e50))
-        return (None, None)
-    if mosaic_filter_0a5a785['arg_process_fn'] == 'get_filter_arg_string_by_offset_with_type':
-        mosaic_append_b2b8b40, mosaic_result_c320641 = globals()[mosaic_filter_0a5a785['arg_process_fn']](mosaic_f_b8c2592, mosaic_filter_arg_29ce1bb)
-        if mosaic_filter_id_3774e50 == 1 and mosaic_append_b2b8b40 == 'path':
-            mosaic_append_b2b8b40 = 'subpath'
-        if mosaic_result_c320641 == None and mosaic_filter_0a5a785['name'] != 'debug-mode':
-            mosaic_logger.warn('result of calling string offset for filter {} is none'.format(mosaic_filter_id_3774e50))
-            return (None, None)
-        return (mosaic_filter_0a5a785['name'] + ('-' if len(mosaic_filter_0a5a785['name']) else '') + mosaic_append_b2b8b40, mosaic_result_c320641)
-    mosaic_result_c320641 = globals()[mosaic_filter_0a5a785['arg_process_fn']](mosaic_f_b8c2592, mosaic_filter_arg_29ce1bb)
-    if mosaic_result_c320641 == None and mosaic_filter_0a5a785['name'] != 'debug-mode':
-        mosaic_logger.warn('result of calling arg_process_fn for filter {} is none'.format(mosaic_filter_id_3774e50))
-        return (None, None)
-    return (mosaic_filter_0a5a785['name'], mosaic_result_c320641)
-
-@_name_boundary.callable_contract({'f': 'mosaic_f_3003b87', 'sandbox_data': 'mosaic_sandbox_data_9cb51c2', 'modifier_id': 'mosaic_modifier_id_4aae31c', 'modifier_argument': 'mosaic_modifier_argument_81bc424'}, 'convert_modifier_callback')
-def mosaic_convert_modifier_callback(mosaic_f_3003b87, mosaic_sandbox_data_9cb51c2, mosaic_modifier_id_4aae31c, mosaic_modifier_argument_81bc424):
-    """Convert filter from binary form to string.
-
-    Binary form consists of filter id and filter argument:
-      * filter id is the index inside the filters array above
-      * filter argument is an actual parameter (such as a port number),
-        a file offset or a regular expression index
-
-    The string form consists of the name of the filter (as extracted
-    from the filters array above) and a string representation of the
-    filter argument. The string form of the filter argument if obtained
-    from the binary form through the use of the callback function (as
-    extracted frm the filters array above).
-
-    Function arguments are:
-      f: the binary sandbox profile file
-      regex_list: list of regular expressions
-      filter_id: the binary form of the filter id
-      filter_arg: the binary form of the filter argument
-    """
-    global mosaic_regex_list
-    global mosaic_keep_builtin_filters
-    global mosaic_global_vars
-    global base_addr
-    mosaic_global_vars = _name_boundary.attributes(mosaic_sandbox_data_9cb51c2)['global_vars']
-    mosaic_regex_list = _name_boundary.attributes(mosaic_sandbox_data_9cb51c2)['regex_list']
-    mosaic_base_addr = _name_boundary.attributes(mosaic_sandbox_data_9cb51c2)['base_addr']
-    if not _name_boundary.attributes(mosaic_Modifiers)['exists'](mosaic_modifier_id_4aae31c):
+def mosaic_convert_modifier_callback(f, sandbox_data, modifier_id, modifier_argument):
+    entry = mosaic_Modifiers.get(modifier_id)
+    if entry is None:
         return '== NEED TO ADD MODIFIER'
-    mosaic_modifier_func_6ff7d98 = _name_boundary.attributes(mosaic_Modifiers)['get'](mosaic_modifier_id_4aae31c)
-    if mosaic_modifier_func_6ff7d98['arg_process_fn'] == 'get_filter_arg_string_by_offset_with_type':
-        mosaic_append_5b2ccb9, mosaic_result_bf107b2 = globals()[mosaic_modifier_func_6ff7d98['arg_process_fn']](mosaic_f_3003b87, mosaic_modifier_argument_81bc424)
-        mosaic_result_bf107b2 += mosaic_append_5b2ccb9
-        return mosaic_result_bf107b2
-    mosaic_result_bf107b2 = globals()[mosaic_modifier_func_6ff7d98['arg_process_fn']](mosaic_f_3003b87, mosaic_modifier_argument_81bc424)
-    return mosaic_result_bf107b2
+    with _conversion_context(sandbox_data, False):
+        result = _converter(entry['arg_process_fn'])(f, modifier_argument)
+        if entry['arg_process_fn'] == 'get_filter_arg_string_by_offset_with_type':
+            suffix, strings = result
+            return strings + [suffix]
+        return result
 _name_boundary.module_contract(globals(), {'get_filter_arg_octal_integer': 'mosaic_get_filter_arg_octal_integer', 'get_filter_arg_regex_by_id': 'mosaic_get_filter_arg_regex_by_id', 'regex_list': 'mosaic_regex_list', 'get_filter_arg_signal_number': 'mosaic_get_filter_arg_signal_number', 'get_filter_arg_string_by_offset': 'mosaic_get_filter_arg_string_by_offset', 'get_filter_arg_string_by_offset_no_skip': 'mosaic_get_filter_arg_string_by_offset_no_skip', 'get_filter_arg_socket_domain': 'mosaic_get_filter_arg_socket_domain', 'convert_filter_callback': 'mosaic_convert_filter_callback', 'global_vars': 'mosaic_global_vars', 'get_filter_arg_persona_type': 'mosaic_get_filter_arg_persona_type', 'get_filter_arg_fcntl': 'mosaic_get_filter_arg_fcntl', 'get_filter_arg_network_address': 'mosaic_get_filter_arg_network_address', 'get_filter_arg_task_special_port': 'mosaic_get_filter_arg_task_special_port', 'get_none': 'mosaic_get_none', 'get_filter_arg_machtrap_number': 'mosaic_get_filter_arg_machtrap_number', 'reverse_string': 'mosaic_reverse_string', 'get_filter_arg_socket_option_level': 'mosaic_get_filter_arg_socket_option_level', 'Filters': 'mosaic_Filters', 'logging': 'mosaic_logging', 'get_filter_arg_string_by_offset_with_type': 'mosaic_get_filter_arg_string_by_offset_with_type', 'get_filter_arg_boolean': 'mosaic_get_filter_arg_boolean', 'Modifiers': 'mosaic_Modifiers', 'get_filter_arg_host_port': 'mosaic_get_filter_arg_host_port', 'get_filter_arg_storage_class_extension': 'mosaic_get_filter_arg_storage_class_extension', 'get_filter_arg_integer': 'mosaic_get_filter_arg_integer', 'get_filter_arg_privilege_id': 'mosaic_get_filter_arg_privilege_id', 'struct': 'mosaic_struct', 'logger': 'mosaic_logger', 'get_filter_arg_owner': 'mosaic_get_filter_arg_owner', 'get_filter_arg_socket_type': 'mosaic_get_filter_arg_socket_type', 'get_filter_arg_csr': 'mosaic_get_filter_arg_csr', 'get_filter_arg_necp_client_action': 'mosaic_get_filter_arg_necp_client_action', 'get_filter_arg_vnode_type': 'mosaic_get_filter_arg_vnode_type', 'get_filter_arg_file_attribute': 'mosaic_get_filter_arg_file_attribute', 'get_filter_arg_socket_option_name': 'mosaic_get_filter_arg_socket_option_name', 'get_filter_arg_memorystatus_control': 'mosaic_get_filter_arg_memorystatus_control', 'get_filter_arg_iokit_usb_subclass': 'mosaic_get_filter_arg_iokit_usb_subclass', 'convert_modifier_callback': 'mosaic_convert_modifier_callback', 'get_filter_arg_iokit_usb': 'mosaic_get_filter_arg_iokit_usb', 'get_filter_arg_syscall_number': 'mosaic_get_filter_arg_syscall_number', 'keep_builtin_filters': 'mosaic_keep_builtin_filters', 're': 'mosaic_re', 'get_filter_arg_entry_attribute': 'mosaic_get_filter_arg_entry_attribute', 'get_filter_arg_process_attribute': 'mosaic_get_filter_arg_process_attribute', 'get_filter_arg_kernel_mig_routine': 'mosaic_get_filter_arg_kernel_mig_routine', 'get_filter_arg_ctl': 'mosaic_get_filter_arg_ctl'})

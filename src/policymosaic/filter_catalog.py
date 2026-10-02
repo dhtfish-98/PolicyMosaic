@@ -2,15 +2,25 @@
 import policymosaic_boundary as _name_boundary
 import json as mosaic_json
 
-@_name_boundary.callable_contract({}, 'read_filters')
 def mosaic_read_filters():
-    mosaic_temp_6b15a29 = {}
-    mosaic_filters_b11664d = {}
-    with open(_name_boundary.resource('filters.json')) as mosaic_data_12e6e5e:
-        mosaic_temp_6b15a29 = mosaic_json.load(mosaic_data_12e6e5e)
-        for mosaic_key_7589bd7, mosaic_value_024ef92 in mosaic_temp_6b15a29.items():
-            mosaic_filters_b11664d[int(str(mosaic_key_7589bd7), 16)] = mosaic_value_024ef92
-    return mosaic_filters_b11664d
+    from policymosaic.safety import PolicyFormatError, read_local
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise PolicyFormatError('duplicate packaged catalog key')
+            result[key] = value
+        return result
+    data = mosaic_json.loads(read_local(_name_boundary.resource('filters.json'), 1024 * 1024).decode('utf-8'), object_pairs_hook=unique)
+    if not isinstance(data, dict) or len(data) > 65536:
+        raise PolicyFormatError('invalid packaged catalog')
+    output = {}
+    for key, value in data.items():
+        identifier = int(key, 16)
+        if not 0 <= identifier <= 65535 or identifier in output or not isinstance(value, dict) or not isinstance(value.get('name'), str) or value.get('arg_process_fn') is not None and not isinstance(value.get('arg_process_fn'), str):
+            raise PolicyFormatError('invalid packaged catalog entry')
+        output[identifier] = value
+    return output
 
 @_name_boundary.class_contract('Filters', {'filters': 'mosaic_filters', 'exists': 'mosaic_exists', 'get': 'mosaic_get'})
 class mosaic_Filters(object):

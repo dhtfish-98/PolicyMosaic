@@ -10,3 +10,9 @@ PolicyMosaic is a derived, reorganized version of sandblaster_26.
 The original algorithms and project history belong to their upstream authors. This derivative introduces renamed implementation bindings resolved by lexical scope, renamed modules, and explicit adapters separating public data labels from internal implementation names. It does not claim independent authorship of upstream code or approval by any verification program.
 
 Public CLI flags, structured data keys, enum identifiers, Python framework hooks, legacy external API aliases, resource formats and compatibility labels are deliberate naming exceptions. The compatibility module provides separate wire/display labels; it is not a hidden copy of the old implementation.
+
+## Maintenance release 1.0.2
+
+The current derivative substantively replaces the profile input/report pipeline, string and regex record interpreters, scoped filter conversion and optional firmware execution workflow. Operation and regex graph reduction algorithms retain upstream lineage; this release adds resource guards and replaces selected reference/walk/state routines. It does not claim that every inherited graph or formatting algorithm has been independently rewritten.
+
+The package also adds owned malformed-input/process fixtures, an isolated native-emulation worker and exact intentional-change comparison evidence. Original catalogs and license remain. Historical naming maps describe the earlier release and do not supersede current source or imply independent authorship.

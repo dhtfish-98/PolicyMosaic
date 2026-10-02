@@ -1,0 +1,130 @@
+{
+  "review_date": "2026-10-02",
+  "scope": "Every current Python module inventoried and parsed; capabilities/changed control paths reviewed. Complete inherited graph/formatter semantic rewrite remains OPEN.",
+  "files": [
+    {
+      "path": "src/policymosaic/__init__.py",
+      "sha256": "84490864c5667c573fe859dca0e0c32be449dab98420f0077d111495ae6fe165",
+      "lines": 3,
+      "functions": 0,
+      "classes": 0,
+      "review": "Package imports install a NullHandler and create no caller log file."
+    },
+    {
+      "path": "src/policymosaic/emulation_worker.py",
+      "sha256": "8611a8f2dc8949b2a0da1c06556aa977f1f08b41140838f5ba930c36a8697bbd",
+      "lines": 48,
+      "functions": 2,
+      "classes": 0,
+      "review": "New isolated native worker for authorized finite ARM64 extraction snippets; no host-native execution of input instructions."
+    },
+    {
+      "path": "src/policymosaic/filter_catalog.py",
+      "sha256": "e86d568a0ed1e7edd132c5d3c853b8758ef34a21e24c3ad6e49a80c9ef8c2004",
+      "lines": 38,
+      "functions": 4,
+      "classes": 1,
+      "review": "Checked packaged catalog loader; upstream catalog unchanged."
+    },
+    {
+      "path": "src/policymosaic/filter_decoder.py",
+      "sha256": "5e9034532e102d2a436465e88b32e3027ce7f9609b848f5c4dfd4dafe4712679",
+      "lines": 364,
+      "functions": 40,
+      "classes": 0,
+      "review": "Scoped conversion context and checked string/network/regex references rewritten; numeric name catalogs retained."
+    },
+    {
+      "path": "src/policymosaic/firmware_helper.py",
+      "sha256": "d7445aa01cc5ee12c559322d06a8a1d0442558fcd69b4142dc9ec267ac25a0d6",
+      "lines": 331,
+      "functions": 28,
+      "classes": 2,
+      "review": "Rewritten subprocess, output, workspace and emulation invocation flow; no real firmware corpus tested."
+    },
+    {
+      "path": "src/policymosaic/launcher.py",
+      "sha256": "815f2269329ec85b9162f82c140beec61f4c4814aee6c4539c1ff98c6e746618",
+      "lines": 3,
+      "functions": 1,
+      "classes": 0,
+      "review": "Delegates to supported profile-decoder CLI."
+    },
+    {
+      "path": "src/policymosaic/modifier_catalog.py",
+      "sha256": "368e32bad1d628e306b14f79dfead7f8e3d62eaed51d704b7c0f677e044da275",
+      "lines": 38,
+      "functions": 4,
+      "classes": 1,
+      "review": "Checked packaged catalog loader; upstream catalog unchanged."
+    },
+    {
+      "path": "src/policymosaic/profile_decoder.py",
+      "sha256": "95ce3cf1995fd62838e1055adf74cea367031ff21d41c0824619cae3585cad9e",
+      "lines": 400,
+      "functions": 16,
+      "classes": 1,
+      "review": "Rewritten layout, snapshot CLI, node validation, report/compiler publication; inherited layout dialect retained."
+    },
+    {
+      "path": "src/policymosaic/regex_bytecode.py",
+      "sha256": "8b8e60a951a3a0669fcd6e2a08e0410568ac1a509de8ecdecdd1c6fb269a1622",
+      "lines": 102,
+      "functions": 12,
+      "classes": 1,
+      "review": "Rewritten bounded operand and instruction records; inherited position/end conventions retained."
+    },
+    {
+      "path": "src/policymosaic/regex_graph.py",
+      "sha256": "93145e8d7e8d0f3b42b6d26fbc1107c5c87ae2c31412357e0cd0f4dd7bdbaf46",
+      "lines": 555,
+      "functions": 39,
+      "classes": 2,
+      "review": "Per-instance state and iterative jump walks rewritten; guarded attributed canonical-reduction semantics remain OPEN."
+    },
+    {
+      "path": "src/policymosaic/rule_graph.py",
+      "sha256": "6cad487034cb21e356e58ac8ee1a777355e28fb9420dfbffb5265a954b0ead2e",
+      "lines": 2180,
+      "functions": 142,
+      "classes": 8,
+      "review": "Node-table linking and C data literals repaired; inherited rule reduction/formatting with work and expansion guards remains OPEN."
+    },
+    {
+      "path": "src/policymosaic/safety.py",
+      "sha256": "329927ef435443ee82d0a0d2aef2e3022f4159c1041989403ba3378ade1d8353",
+      "lines": 278,
+      "functions": 20,
+      "classes": 4,
+      "review": "New finite reads, checked snapshots/seeks, output exclusivity, process/work/expansion limits."
+    },
+    {
+      "path": "src/policymosaic/string_bytecode.py",
+      "sha256": "616c04c7eb2a77b342ddd61cfa082b85f028d4f36fca964ab93cea91ab324ee8",
+      "lines": 232,
+      "functions": 32,
+      "classes": 2,
+      "review": "Rewritten finite state interpreter with explicit truncated/unsupported errors; inherited opcode dialect retained."
+    },
+    {
+      "path": "src/policymosaic_boundary/__init__.py",
+      "sha256": "18f043464a96d7edfb2d5be02ab0112bd983011aff00ffb8e33d69637dcf9172",
+      "lines": 159,
+      "functions": 27,
+      "classes": 1,
+      "review": "Compatibility names/resources/attribute adapters reviewed; original public naming boundary retained."
+    },
+    {
+      "path": "src/policymosaic_delivery_build.py",
+      "sha256": "dfced05a75779c38d5afabd4351855f3d8e0454283b1e07f4adfb528f47ef339",
+      "lines": 12,
+      "functions": 1,
+      "classes": 1,
+      "review": "Packaging file-mode preservation reviewed; no user-input execution or network access."
+    }
+  ],
+  "module_count": 15,
+  "upstream_commit": "3dc6582f7f7d137adaa115f635eb5fc8e8da91f5",
+  "upstream_tree": "1cac93e4419f6de08e6a094cfe2c530dea897696",
+  "original_archive_files_verified_unchanged": 38
+}

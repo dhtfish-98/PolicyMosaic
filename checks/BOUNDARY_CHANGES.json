@@ -1,0 +1,615 @@
+[
+  {
+    "index": 384,
+    "old": [
+      [
+        "header-boundary",
+        0
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        0
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 385,
+    "old": [
+      [
+        "header-boundary",
+        1
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        1
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 386,
+    "old": [
+      [
+        "header-boundary",
+        2
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        2
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 387,
+    "old": [
+      [
+        "header-boundary",
+        3
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        3
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 388,
+    "old": [
+      [
+        "header-boundary",
+        4
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        4
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 389,
+    "old": [
+      [
+        "header-boundary",
+        5
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        5
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 390,
+    "old": [
+      [
+        "header-boundary",
+        6
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        6
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 391,
+    "old": [
+      [
+        "header-boundary",
+        7
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        7
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 392,
+    "old": [
+      [
+        "header-boundary",
+        8
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        8
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 393,
+    "old": [
+      [
+        "header-boundary",
+        9
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        9
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 394,
+    "old": [
+      [
+        "header-boundary",
+        10
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        10
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 395,
+    "old": [
+      [
+        "header-boundary",
+        11
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        11
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 396,
+    "old": [
+      [
+        "header-boundary",
+        12
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        12
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 397,
+    "old": [
+      [
+        "header-boundary",
+        13
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        13
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 398,
+    "old": [
+      [
+        "header-boundary",
+        14
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        14
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 399,
+    "old": [
+      [
+        "header-boundary",
+        15
+      ],
+      "exception",
+      "error",
+      "unpack requires a buffer of 16 bytes"
+    ],
+    "new": [
+      [
+        "header-boundary",
+        15
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated binary field"
+    ]
+  },
+  {
+    "index": 400,
+    "old": [
+      [
+        "header-boundary",
+        16
+      ],
+      "return",
+      "\n                struct_size: 0xe\n                header: 0xa1fb\n                op_nodes_count: 0xeb5f\n                sb_ops_count: 0x8f\n                vars_count: 0xb4\n                states_count: 0x14\n                num_profiles: 0xdae2\n                re_table_count: 0x57f9\n                entitlements_count: 0x544c\n\n                regex_table_offset: 0xe\n                pattern_vars_offset: 0xb000\n                states_offset: 0xb168\n                entitlements_offset: 0xb190\n                profiles_offset: 0x15a28\n                profiles_end_offset: 0xf94e2c\n                operation_nodes_offset: 0xf94e30\n                operation_nodes_size: 0x75af8\n                base_adrr: 0x100a928\n                "
+    ],
+    "new": [
+      [
+        "header-boundary",
+        16
+      ],
+      "exception",
+      "PolicyFormatError",
+      "unsupported profile header"
+    ]
+  },
+  {
+    "index": 401,
+    "old": [
+      [
+        "header-boundary",
+        17
+      ],
+      "return",
+      "\n                struct_size: 0xe\n                header: 0xd113\n                op_nodes_count: 0x82e8\n                sb_ops_count: 0x95\n                vars_count: 0xd2\n                states_count: 0x5b\n                num_profiles: 0x2eaf\n                re_table_count: 0xa84e\n                entitlements_count: 0x43\n\n                regex_table_offset: 0xe\n                pattern_vars_offset: 0x150aa\n                states_offset: 0x1524e\n                entitlements_offset: 0x15304\n                profiles_offset: 0x1538a\n                profiles_end_offset: 0x3865fc\n                operation_nodes_offset: 0x386600\n                operation_nodes_size: 0x41740\n                base_adrr: 0x3c7d40\n                "
+    ],
+    "new": [
+      [
+        "header-boundary",
+        17
+      ],
+      "exception",
+      "PolicyFormatError",
+      "unsupported profile header"
+    ]
+  },
+  {
+    "index": 402,
+    "old": [
+      [
+        "header-boundary",
+        18
+      ],
+      "return",
+      "\n                struct_size: 0xe\n                header: 0xee52\n                op_nodes_count: 0x6b31\n                sb_ops_count: 0xda\n                vars_count: 0x89\n                states_count: 0xaa\n                num_profiles: 0xecea\n                re_table_count: 0x5eeb\n                entitlements_count: 0x1666\n\n                regex_table_offset: 0xe\n                pattern_vars_offset: 0xbde4\n                states_offset: 0xbef6\n                entitlements_offset: 0xc04a\n                profiles_offset: 0xed16\n                profiles_end_offset: 0x1981f46\n                operation_nodes_offset: 0x1981f48\n                operation_nodes_size: 0x35988\n                base_adrr: 0x19b78d0\n                "
+    ],
+    "new": [
+      [
+        "header-boundary",
+        18
+      ],
+      "exception",
+      "PolicyFormatError",
+      "unsupported profile header"
+    ]
+  },
+  {
+    "index": 403,
+    "old": [
+      [
+        "header-boundary",
+        19
+      ],
+      "return",
+      "\n                struct_size: 0xe\n                header: 0x65f6\n                op_nodes_count: 0xa452\n                sb_ops_count: 0x38\n                vars_count: 0x10\n                states_count: 0xe6\n                num_profiles: 0x8360\n                re_table_count: 0xa6d4\n                entitlements_count: 0xfc62\n\n                regex_table_offset: 0xe\n                pattern_vars_offset: 0x14db6\n                states_offset: 0x14dd6\n                entitlements_offset: 0x14fa2\n                profiles_offset: 0x34866\n                profiles_end_offset: 0x3ecfe6\n                operation_nodes_offset: 0x3ecfe8\n                operation_nodes_size: 0x52290\n                base_adrr: 0x43f278\n                "
+    ],
+    "new": [
+      [
+        "header-boundary",
+        19
+      ],
+      "exception",
+      "PolicyFormatError",
+      "unsupported profile header"
+    ]
+  },
+  {
+    "index": 916,
+    "old": [
+      [
+        "string",
+        "",
+        ""
+      ],
+      "return",
+      []
+    ],
+    "new": [
+      [
+        "string",
+        "",
+        ""
+      ],
+      "exception",
+      "PolicyFormatError",
+      "incomplete string bytecode"
+    ]
+  },
+  {
+    "index": 918,
+    "old": [
+      [
+        "string",
+        "a",
+        ""
+      ],
+      "return",
+      []
+    ],
+    "new": [
+      [
+        "string",
+        "a",
+        ""
+      ],
+      "exception",
+      "PolicyFormatError",
+      "incomplete string bytecode"
+    ]
+  },
+  {
+    "index": 920,
+    "old": [
+      [
+        "string",
+        ".",
+        ""
+      ],
+      "return",
+      []
+    ],
+    "new": [
+      [
+        "string",
+        ".",
+        ""
+      ],
+      "exception",
+      "PolicyFormatError",
+      "incomplete string bytecode"
+    ]
+  },
+  {
+    "index": 922,
+    "old": [
+      [
+        "string",
+        "alpha",
+        ""
+      ],
+      "return",
+      []
+    ],
+    "new": [
+      [
+        "string",
+        "alpha",
+        ""
+      ],
+      "exception",
+      "PolicyFormatError",
+      "incomplete string bytecode"
+    ]
+  },
+  {
+    "index": 924,
+    "old": [
+      [
+        "string",
+        "/tmp/example",
+        ""
+      ],
+      "return",
+      []
+    ],
+    "new": [
+      [
+        "string",
+        "/tmp/example",
+        ""
+      ],
+      "exception",
+      "PolicyFormatError",
+      "incomplete string bytecode"
+    ]
+  },
+  {
+    "index": 926,
+    "old": [
+      [
+        "string",
+        "场景",
+        ""
+      ],
+      "return",
+      []
+    ],
+    "new": [
+      [
+        "string",
+        "场景",
+        ""
+      ],
+      "exception",
+      "PolicyFormatError",
+      "incomplete string bytecode"
+    ]
+  },
+  {
+    "index": 928,
+    "old": [
+      [
+        "string",
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        ""
+      ],
+      "return",
+      []
+    ],
+    "new": [
+      [
+        "string",
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        ""
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated string token"
+    ]
+  },
+  {
+    "index": 929,
+    "old": [
+      [
+        "string",
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "0a"
+      ],
+      "return",
+      []
+    ],
+    "new": [
+      [
+        "string",
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "0a"
+      ],
+      "exception",
+      "PolicyFormatError",
+      "truncated string token"
+    ]
+  },
+  {
+    "index": 955,
+    "old": [
+      [
+        "helper-output",
+        "nothing"
+      ],
+      "exception",
+      "TypeError",
+      "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'"
+    ],
+    "new": [
+      [
+        "helper-output",
+        "nothing"
+      ],
+      "exception",
+      "PolicyFormatError",
+      "helper did not report an output path"
+    ]
+  }
+]
