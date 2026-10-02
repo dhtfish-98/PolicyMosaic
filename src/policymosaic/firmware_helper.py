@@ -1,5 +1,5 @@
-# Derived from helpers/extract_sb.py; original copyright and license in ORIGIN.md and LICENSE.
 #!/usr/bin/env python3
+# Derived from helpers/extract_sb.py; original copyright and license in ORIGIN.md and LICENSE.
 import policymosaic_boundary as _name_boundary
 import subprocess as mosaic_subprocess
 import unicorn.arm64_const as _boundary_import_unicorn_arm64_const

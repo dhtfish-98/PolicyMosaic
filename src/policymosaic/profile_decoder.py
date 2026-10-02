@@ -1,5 +1,5 @@
-# Derived from reverse-sandbox/reverse_sandbox.py; original copyright and license in ORIGIN.md and LICENSE.
 #!/usr/bin/env python
+# Derived from reverse-sandbox/reverse_sandbox.py; original copyright and license in ORIGIN.md and LICENSE.
 """
 iOS/OS X sandbox decompiler
 

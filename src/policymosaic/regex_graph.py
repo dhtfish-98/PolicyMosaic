@@ -1,5 +1,5 @@
-# Derived from reverse-sandbox/sandbox_regex.py; original copyright and license in ORIGIN.md and LICENSE.
 #!/usr/bin/env python
+# Derived from reverse-sandbox/sandbox_regex.py; original copyright and license in ORIGIN.md and LICENSE.
 import policymosaic_boundary as _name_boundary
 import logging as mosaic_logging
 import logging.config as _boundary_import_logging_config

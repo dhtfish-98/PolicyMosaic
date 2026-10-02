@@ -1,5 +1,5 @@
-# Derived from reverse-sandbox/operation_node.py; original copyright and license in ORIGIN.md and LICENSE.
 #!/usr/bin/python3
+# Derived from reverse-sandbox/operation_node.py; original copyright and license in ORIGIN.md and LICENSE.
 import policymosaic_boundary as _name_boundary
 import sys as mosaic_sys
 import struct as mosaic_struct

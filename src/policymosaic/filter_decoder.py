@@ -1,5 +1,5 @@
-# Derived from reverse-sandbox/sandbox_filter.py; original copyright and license in ORIGIN.md and LICENSE.
 #!/usr/bin/env python3
+# Derived from reverse-sandbox/sandbox_filter.py; original copyright and license in ORIGIN.md and LICENSE.
 import policymosaic_boundary as _name_boundary
 import struct as mosaic_struct
 import re as mosaic_re
