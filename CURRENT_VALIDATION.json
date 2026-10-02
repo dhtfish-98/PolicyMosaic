@@ -1,8 +1,8 @@
 {
-  "release": "1.0.5",
+  "release": "1.0.6",
   "date": "2026-10-02",
   "python": "3.12.13",
-  "current_tests": 491,
+  "current_tests": 513,
   "retained_contracts": 40,
   "current_boundary_cases": 111,
   "source_observations": 956,
@@ -92,7 +92,7 @@
   },
   "native_environment": {
     "restricted_sandbox_probe": "2.0.1.post1 and 2.1.4: SIGILL (-4) in isolated child",
-    "ordinary_authorized_host_probe": "2.1.4: NOP/instruction-loop limits and all 491 tests PASS",
+    "ordinary_authorized_host_probe": "2.1.4: NOP/instruction-loop limits and all 513 tests PASS",
     "real_firmware": "OPEN",
     "dependency": "unicorn==2.1.4",
     "official_release": "https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4",
@@ -101,7 +101,7 @@
     "parent_failure": "Explicit native emulation unavailable/incomplete; failure/timeouts remain isolated"
   },
   "source_audit": {
-    "modules": 16,
+    "modules": 17,
     "manifest": "SOURCE_AUDIT.json"
   },
   "OPEN": [
@@ -122,7 +122,7 @@
     "parallel_owned_calls": 256,
     "target_sbpl_engine": "OPEN"
   },
-  "decision_language_cases": 25,
+  "decision_language_cases": 27,
   "decision_semantics": {
     "implementation": "immutable per-analysis conditions preserving original branch polarity and terminal outcomes",
     "owned_dags": 7,
@@ -135,5 +135,19 @@
     "shared_source_parallel_calls": 32,
     "contextual_entitlement_and_inline_policy": "retained attributed reducer; OPEN",
     "actual_sbpl_engine": "OPEN"
+  },
+  "reduced_graph_cases": 20,
+  "reduced_graph_semantics": {
+    "implementation": "local iterative operation paths; atomic serial contraction; bottom-up Boolean outcome DAG",
+    "independent_assignment_observations": 9296,
+    "owned_serial_graphs": 5,
+    "owned_serial_assignments": 216,
+    "seeded_serial_graphs": 100,
+    "seeded_serial_assignments": 4640,
+    "seeded_complete_graphs": 100,
+    "seeded_complete_assignments": 4440,
+    "reference": "raw integer adjacency path actions versus reduced expression evaluation",
+    "parallel_local_path_calls": 32,
+    "contextual_binding_and_metanodes": "OPEN"
   }
 }

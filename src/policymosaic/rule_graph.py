@@ -895,32 +895,14 @@ mosaic_current_path = []
 @_name_boundary.callable_contract({'g': 'mosaic_g_78b0e16', 'node': 'mosaic_node_ebb2b0b'}, '_get_operation_node_graph_paths')
 @analysis_guard
 def mosaic__get_operation_node_graph_paths(mosaic_g_78b0e16, mosaic_node_ebb2b0b):
-    global mosaic_paths, mosaic_current_path
-    mosaic_logger.debug(checked_add('getting path for ', _name_boundary.attributes(mosaic_node_ebb2b0b)['str_debug']()))
-    mosaic_current_path.append(mosaic_node_ebb2b0b)
-    mosaic_debug_message_0fb2b10 = 'current_path: [ '
-    for mosaic_n_8754fff in mosaic_current_path:
-        analysis_step()
-        mosaic_debug_message_0fb2b10 = checked_add(mosaic_debug_message_0fb2b10, checked_add(_name_boundary.attributes(mosaic_n_8754fff)['str_debug'](), ', '))
-    mosaic_debug_message_0fb2b10 = checked_add(mosaic_debug_message_0fb2b10, ']')
-    mosaic_logger.debug(mosaic_debug_message_0fb2b10)
-    if 'final' in mosaic_g_78b0e16[mosaic_node_ebb2b0b]['type']:
-        mosaic_copy_path_f267a2b = list(mosaic_current_path)
-        mosaic_paths.append(mosaic_copy_path_f267a2b)
-    else:
-        for mosaic_next_node_b75a008 in mosaic_g_78b0e16[mosaic_node_ebb2b0b]['list']:
-            analysis_step()
-            mosaic__get_operation_node_graph_paths(mosaic_g_78b0e16, mosaic_next_node_b75a008)
-    mosaic_current_path.pop()
+    from policymosaic.reduction import operation_paths
+    return operation_paths(mosaic_g_78b0e16, mosaic_node_ebb2b0b)
 
 @_name_boundary.callable_contract({'g': 'mosaic_g_dafc29f', 'start_node': 'mosaic_start_node_a872404'}, 'get_operation_node_graph_paths')
 @analysis_guard
 def mosaic_get_operation_node_graph_paths(mosaic_g_dafc29f, mosaic_start_node_a872404):
-    global mosaic_paths, mosaic_current_path
-    mosaic_paths = []
-    mosaic_current_path = []
-    mosaic__get_operation_node_graph_paths(mosaic_g_dafc29f, mosaic_start_node_a872404)
-    return mosaic_paths
+    from policymosaic.reduction import operation_paths
+    return operation_paths(mosaic_g_dafc29f, mosaic_start_node_a872404)
 mosaic_nodes_traversed_for_removal = []
 
 @_name_boundary.callable_contract({'g': 'mosaic_g_790f4a1', 'node': 'mosaic_node_fb0ae84', 'start_list': 'mosaic_start_list_58a4894'}, '_remove_duplicate_node_edges')
@@ -1658,117 +1640,26 @@ class mosaic_ReducedGraph:
     @_name_boundary.callable_contract({'self': 'mosaic_self_c3c230f', 'v': 'mosaic_v_0ddf311'}, 'reduce_vertice_single_prev')
     @analysis_guard
     def mosaic_reduce_vertice_single_prev(mosaic_self_c3c230f, mosaic_v_0ddf311):
-        global mosaic_replace_occurred
-        mosaic_prev_4becc0b = _name_boundary.attributes(mosaic_self_c3c230f)['get_prev_vertices'](mosaic_v_0ddf311)
-        if len(mosaic_prev_4becc0b) != 1:
-            mosaic_logger.debug('not a single prev for node')
-            return
-        mosaic_p_dc7441d = mosaic_prev_4becc0b[0]
-        mosaic_nexts_2c3ac18 = _name_boundary.attributes(mosaic_self_c3c230f)['get_next_vertices'](mosaic_p_dc7441d)
-        if len(mosaic_nexts_2c3ac18) > 1 or mosaic_nexts_2c3ac18[0] != mosaic_v_0ddf311:
-            mosaic_logger.debug('multiple nexts for prev')
-            return
-        mosaic_require_all_vertices_5368a23 = []
-        if _name_boundary.attributes(mosaic_p_dc7441d)['is_type_require_all']():
-            mosaic_require_all_vertices_5368a23.extend(_name_boundary.attributes(mosaic_p_dc7441d)['value'])
-        else:
-            mosaic_require_all_vertices_5368a23.append(mosaic_p_dc7441d)
-        if _name_boundary.attributes(mosaic_v_0ddf311)['is_type_require_all']():
-            mosaic_require_all_vertices_5368a23.extend(_name_boundary.attributes(mosaic_v_0ddf311)['value'])
-        else:
-            mosaic_require_all_vertices_5368a23.append(mosaic_v_0ddf311)
-        mosaic_new_vertice_c65d2ab = mosaic_ReducedVertice('require-all', mosaic_require_all_vertices_5368a23, _name_boundary.attributes(mosaic_v_0ddf311)['decision'])
-        _name_boundary.attributes(mosaic_self_c3c230f)['remove_edge_by_vertices'](mosaic_p_dc7441d, mosaic_v_0ddf311)
-        mosaic_replace_occurred = False
-        _name_boundary.attributes(mosaic_self_c3c230f)['replace_vertice_in_edge_start'](mosaic_v_0ddf311, mosaic_new_vertice_c65d2ab)
-        _name_boundary.attributes(mosaic_self_c3c230f)['replace_vertice_in_edge_end'](mosaic_p_dc7441d, mosaic_new_vertice_c65d2ab)
-        _name_boundary.attributes(mosaic_self_c3c230f)['replace_vertice_in_single_vertices'](mosaic_p_dc7441d, mosaic_new_vertice_c65d2ab)
-        _name_boundary.attributes(mosaic_self_c3c230f)['replace_vertice_in_single_vertices'](mosaic_v_0ddf311, mosaic_new_vertice_c65d2ab)
-        _name_boundary.attributes(mosaic_self_c3c230f)['remove_vertice'](mosaic_p_dc7441d)
-        _name_boundary.attributes(mosaic_self_c3c230f)['remove_vertice'](mosaic_v_0ddf311)
-        if not mosaic_replace_occurred:
-            _name_boundary.attributes(mosaic_self_c3c230f)['add_vertice'](mosaic_new_vertice_c65d2ab)
-        if mosaic_v_0ddf311 in _name_boundary.attributes(mosaic_self_c3c230f)['final_vertices']:
-            _name_boundary.attributes(mosaic_self_c3c230f)['final_vertices'].remove(mosaic_v_0ddf311)
-            _name_boundary.attributes(mosaic_self_c3c230f)['final_vertices'].append(mosaic_new_vertice_c65d2ab)
+        graph, vertex = mosaic_self_c3c230f, mosaic_v_0ddf311
+        previous = graph.get_prev_vertices(vertex)
+        if len(previous) != 1: return False
+        from policymosaic.reduction import contract_serial
+        return contract_serial(graph, previous[0], vertex, mosaic_ReducedVertice, mosaic_ReducedEdge)
 
     @_name_boundary.callable_contract({'self': 'mosaic_self_ed0dc5b', 'v': 'mosaic_v_bb9d1ed'}, 'reduce_vertice_single_next')
     @analysis_guard
     def mosaic_reduce_vertice_single_next(mosaic_self_ed0dc5b, mosaic_v_bb9d1ed):
-        global mosaic_replace_occurred
-        mosaic_next_f92876f = _name_boundary.attributes(mosaic_self_ed0dc5b)['get_next_vertices'](mosaic_v_bb9d1ed)
-        if len(mosaic_next_f92876f) != 1:
-            return
-        mosaic_n_172a2d2 = mosaic_next_f92876f[0]
-        mosaic_prevs_4b9f9be = _name_boundary.attributes(mosaic_self_ed0dc5b)['get_prev_vertices'](mosaic_n_172a2d2)
-        if len(mosaic_prevs_4b9f9be) > 1 or mosaic_prevs_4b9f9be[0] != mosaic_v_bb9d1ed:
-            return
-        mosaic_require_all_vertices_c90f6ed = []
-        if _name_boundary.attributes(mosaic_v_bb9d1ed)['is_type_require_all']():
-            mosaic_require_all_vertices_c90f6ed.extend(_name_boundary.attributes(mosaic_v_bb9d1ed)['value'])
-        else:
-            mosaic_require_all_vertices_c90f6ed.append(mosaic_v_bb9d1ed)
-        if _name_boundary.attributes(mosaic_n_172a2d2)['is_type_require_all']():
-            mosaic_require_all_vertices_c90f6ed.extend(_name_boundary.attributes(mosaic_n_172a2d2)['value'])
-        else:
-            mosaic_require_all_vertices_c90f6ed.append(mosaic_n_172a2d2)
-        mosaic_new_vertice_39c8b78 = mosaic_ReducedVertice('require-all', mosaic_require_all_vertices_c90f6ed, _name_boundary.attributes(mosaic_n_172a2d2)['decision'])
-        _name_boundary.attributes(mosaic_self_ed0dc5b)['remove_edge_by_vertices'](mosaic_v_bb9d1ed, mosaic_n_172a2d2)
-        mosaic_replace_occurred = False
-        _name_boundary.attributes(mosaic_self_ed0dc5b)['replace_vertice_in_edge_start'](mosaic_n_172a2d2, mosaic_new_vertice_39c8b78)
-        _name_boundary.attributes(mosaic_self_ed0dc5b)['replace_vertice_in_edge_end'](mosaic_v_bb9d1ed, mosaic_new_vertice_39c8b78)
-        _name_boundary.attributes(mosaic_self_ed0dc5b)['replace_vertice_in_single_vertices'](mosaic_v_bb9d1ed, mosaic_new_vertice_39c8b78)
-        _name_boundary.attributes(mosaic_self_ed0dc5b)['replace_vertice_in_single_vertices'](mosaic_n_172a2d2, mosaic_new_vertice_39c8b78)
-        _name_boundary.attributes(mosaic_self_ed0dc5b)['remove_vertice'](mosaic_v_bb9d1ed)
-        _name_boundary.attributes(mosaic_self_ed0dc5b)['remove_vertice'](mosaic_n_172a2d2)
-        if not mosaic_replace_occurred:
-            _name_boundary.attributes(mosaic_self_ed0dc5b)['add_vertice'](mosaic_new_vertice_39c8b78)
-        if mosaic_n_172a2d2 in _name_boundary.attributes(mosaic_self_ed0dc5b)['final_vertices']:
-            _name_boundary.attributes(mosaic_self_ed0dc5b)['final_vertices'].remove(mosaic_n_172a2d2)
-            _name_boundary.attributes(mosaic_self_ed0dc5b)['final_vertices'].append(mosaic_new_vertice_39c8b78)
+        graph, vertex = mosaic_self_ed0dc5b, mosaic_v_bb9d1ed
+        following = graph.get_next_vertices(vertex)
+        if len(following) != 1: return False
+        from policymosaic.reduction import contract_serial
+        return contract_serial(graph, vertex, following[0], mosaic_ReducedVertice, mosaic_ReducedEdge)
 
     @_name_boundary.callable_contract({'self': 'mosaic_self_826f91d'}, 'reduce_graph')
     @analysis_guard
     def mosaic_reduce_graph(mosaic_self_826f91d):
-        _name_boundary.attributes(mosaic_self_826f91d)['set_final_vertices']()
-        mosaic_logger.debug(checked_add('before everything:\n', _name_boundary.attributes(mosaic_self_826f91d)['str_simple']()))
-        while True:
-            analysis_step()
-            _name_boundary.attributes(mosaic_self_826f91d)['reduce_changes_occurred'] = False
-            mosaic_copy_vertices_7dab62c = list(_name_boundary.attributes(mosaic_self_826f91d)['vertices'])
-            for mosaic_v_b8c54d2 in mosaic_copy_vertices_7dab62c:
-                analysis_step()
-                _name_boundary.attributes(mosaic_self_826f91d)['reduce_next_vertices'](mosaic_v_b8c54d2)
-            if _name_boundary.attributes(mosaic_self_826f91d)['reduce_changes_occurred'] == False:
-                break
-        mosaic_logger.debug(checked_add('after next:\n', _name_boundary.attributes(mosaic_self_826f91d)['str_simple']()))
-        while True:
-            analysis_step()
-            _name_boundary.attributes(mosaic_self_826f91d)['reduce_changes_occurred'] = False
-            mosaic_copy_vertices_7dab62c = list(_name_boundary.attributes(mosaic_self_826f91d)['vertices'])
-            for mosaic_v_b8c54d2 in mosaic_copy_vertices_7dab62c:
-                analysis_step()
-                _name_boundary.attributes(mosaic_self_826f91d)['reduce_prev_vertices'](mosaic_v_b8c54d2)
-            if _name_boundary.attributes(mosaic_self_826f91d)['reduce_changes_occurred'] == False:
-                break
-        mosaic_logger.debug(checked_add('after next/prev:\n', _name_boundary.attributes(mosaic_self_826f91d)['str_simple']()))
-        while True:
-            analysis_step()
-            mosaic_copy_final_vertices_cbe09f0 = list(_name_boundary.attributes(mosaic_self_826f91d)['final_vertices'])
-            for mosaic_v_b8c54d2 in mosaic_copy_final_vertices_cbe09f0:
-                analysis_step()
-                mosaic_logger.debug(checked_add('reducing single prev vertex: ', _name_boundary.attributes(mosaic_v_b8c54d2)['str_debug']()))
-                _name_boundary.attributes(mosaic_self_826f91d)['reduce_vertice_single_prev'](mosaic_v_b8c54d2)
-                mosaic_logger.debug('### new graph is:')
-                mosaic_logger.debug(_name_boundary.attributes(mosaic_self_826f91d)['str_simple']())
-            if set(mosaic_copy_final_vertices_cbe09f0) == set(_name_boundary.attributes(mosaic_self_826f91d)['final_vertices']):
-                break
-        for mosaic_e_f2d53a4 in _name_boundary.attributes(mosaic_self_826f91d)['edges']:
-            analysis_step()
-            mosaic_v_b8c54d2 = _name_boundary.attributes(mosaic_e_f2d53a4)['end']
-            mosaic_logger.debug(checked_add('reducing single prev vertex: ', _name_boundary.attributes(mosaic_v_b8c54d2)['str_debug']()))
-            _name_boundary.attributes(mosaic_self_826f91d)['reduce_vertice_single_prev'](mosaic_v_b8c54d2)
-        mosaic_logger.debug(checked_add('after everything:\n', _name_boundary.attributes(mosaic_self_826f91d)['str_simple']()))
+        from policymosaic.reduction import reduce_boolean_graph
+        return reduce_boolean_graph(mosaic_self_826f91d, mosaic_ReducedVertice)
 
     @_name_boundary.callable_contract({'self': 'mosaic_self_f078202'}, 'reduce_graph_with_metanodes')
     @analysis_guard

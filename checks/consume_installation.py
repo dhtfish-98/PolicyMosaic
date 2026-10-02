@@ -14,7 +14,7 @@ import tempfile
 package=importlib.import_module('policymosaic')
 location=Path(package.__file__).resolve()
 assert 'site-packages' in location.parts,location
-assert importlib.metadata.version('policymosaic')=='1.0.5'
+assert importlib.metadata.version('policymosaic')=='1.0.6'
 from policymosaic.regex_bytecode import mosaic_parse
 from policymosaic.filter_catalog import mosaic_Filters
 from policymosaic.string_bytecode import mosaic_SandboxString
@@ -34,6 +34,15 @@ assert any(re.fullmatch(expression,'aaa') is not None for expression in expressi
 assert all(re.fullmatch(expression,'b') is None for expression in expressions)
 expressions=mosaic_parse_regex(b'\0'*6+b'\x02+\x25\0')
 assert len(expressions)==1 and re.fullmatch(expressions[0],'+')
+from policymosaic.rule_graph import ReducedGraph, ReducedVertice
+graph=ReducedGraph()
+vertices=[ReducedVertice(value=value,decision='allow (with report)') for value in (1,2,3)]
+for vertex in vertices:graph.add_vertice(vertex)
+graph.add_edge_by_vertices(vertices[0],vertices[1]);graph.add_edge_by_vertices(vertices[1],vertices[2])
+graph.reduce_graph()
+assert len(graph.vertices)==1 and graph.edges==[] and graph.final_vertices==graph.vertices
+assert graph.vertices[0].type=='require-all' and [vertex.value for vertex in graph.vertices[0].value]==[1,2,3]
+assert graph.vertices[0].decision=='allow (with report)' and [vertex.value for vertex in vertices]==[1,2,3]
 
 with tempfile.TemporaryDirectory(prefix='policymosaic-consumer-') as folder:
     root=Path(folder)
@@ -72,4 +81,4 @@ with tempfile.TemporaryDirectory(prefix='policymosaic-consumer-') as folder:
     result=subprocess.run([sys.executable,'-I','-m','policymosaic.emulation_worker','--address','4096','--code','1f2003d5','--mode','profile'],cwd=root,env=env,capture_output=True,timeout=5)
     assert result.returncode==0,result.stderr
     assert json.loads(result.stdout)=={'reference':0,'size':0}
-print('PolicyMosaic 1.0.5 installed consumer PASS')
+print('PolicyMosaic 1.0.6 installed consumer PASS')

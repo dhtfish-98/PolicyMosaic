@@ -178,6 +178,19 @@ def test_unconverted_predicate_is_not_emitted_as_raw_record():
         compile_decisions(graph[2],graph[0])
 
 
+def test_catalog_suppressed_builtin_uses_its_compatibility_path():
+    graph=nodes([ALLOW,DENY,branch(2,1,0,129)])
+    graph[2].non_terminal.argument='###$$$***'
+    assert compile_decisions(graph[2],graph[0]) is None
+
+
+def test_literal_data_matching_legacy_marker_is_not_a_contextual_flag():
+    graph=nodes([ALLOW,DENY,branch(2,1,0,1)])
+    graph[2].non_terminal.filter='literal'
+    graph[2].non_terminal.argument=['###$$$***']
+    assert compile_decisions(graph[2],graph[0]) is not None
+
+
 def test_decision_interning_and_expansion_limits(monkeypatch):
     from policymosaic import decision_graph
     graph=nodes([ALLOW,DENY,branch(2,1,0)])

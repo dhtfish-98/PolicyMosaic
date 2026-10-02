@@ -1,4 +1,4 @@
-# Current validation — 1.0.5
+# Current validation — 1.0.6
 
 Date: 2026-10-02. Python 3.12.13, macOS ARM64.
 
@@ -8,7 +8,15 @@ Ordinary operation DAGs compile through immutable conditions equivalent to `if p
 
 An independent raw-byte branch walker and separate emitted-form interpreter check **6,132 condition assignments** across 7 owned and 100 fixed-seed DAGs. Each assignment checks both the compiled expression and emitted report against the raw record decision. Additional tests check actual CLI unconditional outcomes, modifier preservation, shared-source immutability in 32 concurrent calls, missing/cyclic/deep graphs, conversion errors and expression budgets. This is finite ordinary Boolean evidence; it does not establish actual SBPL evaluation or contextual variable binding.
 
-Entitlement filter IDs 30/31/32/160 and inline policy references return a contextual marker and retain the attributed reducer. Three concrete legacy execution defects are repaired: an undefined variable in the single-next path, Python 3 dictionary-key indexing and sorting incomparable node objects. These repairs do not establish contextual reduction equivalence. Ordinary condition compilation limits node count to 4,096, depth to 128, condition/outcome table counts to 65,536 and conservative expansion/predicate data to 16 MiB within the existing work budget.
+Entitlement filter IDs 30/31/32/160, inline policy references and catalog-converted suppressed built-in markers return a contextual marker and retain the attributed reducer. Three concrete legacy execution defects are repaired: an undefined variable in the single-next path, Python 3 dictionary-key indexing and sorting incomparable node objects. These repairs do not establish contextual reduction equivalence. Ordinary condition compilation limits node count to 4,096, depth to 128, condition/outcome table counts to 65,536 and conservative expansion/predicate data to 16 MiB within the existing work budget.
+
+## Direct reduced-graph and path rewrite
+
+The direct `ReducedGraph.reduce_graph` library core now compiles a finite DAG from sinks to roots and groups paths by the exact final decision string, preserving modifiers. Each existing vertex is treated as an opaque Boolean predicate expression; no contextual binding meaning is inferred. Generated require-all/require-any expressions use per-call interning and checked node/outcome/depth budgets. Compilation publishes the new membership only after it succeeds and preserves original vertex data.
+
+Serial contraction now requires an exclusive first-to-last edge, checks members, endpoints, finals, cycles and shared expression depth, constructs a candidate and validates it before replacement. It preserves embedded shared references and explicitly accepting prefixes by leaving those chains intact. This fixes the observed three-node case that formerly left edge endpoints/finals outside the graph. Path enumeration is iterative with local state, explicit cycle/reference/depth checks and a 65,536 stored path-node budget; 32 concurrent local path queries passed without changing legacy global lists.
+
+Independent raw integer-adjacency traversal versus reduced Boolean expressions checks **9,296 assignments**: 216 across 5 owned serial-contraction graphs, 4,640 across 100 fixed-seed contraction graphs, and 4,440 across a separate 100 fixed-seed full-reduction graphs. Every comparison checks the complete set of accepted terminal actions, including opposite actions on different paths. Exact modifier decision strings and failure-before-mutation are checked separately. These tests establish finite Boolean-path behavior, not entitlement variable quantification or target SBPL evaluation. The contextual CLI still uses inherited metanode reduction; remaining parallel/helper/formatter paths remain OPEN.
 
 ## Regex semantic rewrite
 
@@ -20,7 +28,7 @@ Canonical expression spelling may change while finite owned language equivalence
 
 ## Evidence
 
-- **491 tests passed**: 40 retained contracts plus 111 boundary/process/format tests, 315 regex language/boundary tests and 25 decision language/boundary tests. Tests use owned finite binary fixtures; they do not query a device or download firmware.
+- **513 tests passed**: 40 retained contracts plus 111 boundary/process/format tests, 315 regex language/boundary tests 27 decision language/boundary tests and 20 reduced-graph/path tests. Tests use owned finite binary fixtures; they do not query a device or download firmware.
 - Fixed upstream archive: commit `3dc6582f7f7d137adaa115f635eb5fc8e8da91f5`, tree `1cac93e4419f6de08e6a094cfe2c530dea897696`. The archive's original files are checked separately from decoder outputs/logs.
 - **956 deterministic observations**: 927 equal; 29 exact checked changes. Those changes are 20 incomplete/unknown header cases, 8 incomplete/malformed string cases, and one helper result missing its output path. Every other observation must match; the comparison does not blanket-ignore exceptions.
 - **8 normal SBPL/C reports** independently compared against fixed upstream: 6 are byte-identical; 2 have the exact checked modifier ordering change `(deny (with no-report) file-read*)` to `(deny file-read* (with no-report))`. The persistent report gate accepts only these exact original/current bytes. An independent terminal-form parser identifies the same action, operation and modifier in each old/new report, and checks the action against the raw terminal table. This does not validate target SBPL compiler/runtime behavior. These are finite examples, not coverage of all policy expressions.
@@ -49,7 +57,7 @@ Canonical expression spelling may change while finite owned language equivalence
 
 The legacy string interpreter silently returned an empty result for the listed incomplete programs; these now fail explicitly. Unknown headers and regex opcodes, zero-length underflow, out-of-range references and graph cycles also fail. The current profile listing uses the computed row stride rather than the old hard-coded 376-byte stride. Fresh per-operation graph copies avoid mutation leaking into another operation. Conversion state uses a scoped context instead of incorrect/shared `base_addr` assignments.
 
-The former Unicorn 2.0.1.post1 and current official 2.1.4 both terminated the isolated NOP probe with SIGILL in the restricted local sandbox. Unicorn 2.1.4 passed the same NOP/instruction-loop probe and all 491 tests on the authorized ordinary ARM64 host; the dependency is now pinned to that tested release. The isolated firmware parent reports native emulation as unavailable or incomplete when its child fails or times out. No native crash escapes to the firmware parent. This is an observed execution-environment limitation, not a firmware/device result or a claim that 2.1.4 fixes sandbox compatibility. The official release describes ARM64 distribution and PC guarantees: [upstream release](https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4), [PyPI](https://pypi.org/project/unicorn/2.1.4/).
+The former Unicorn 2.0.1.post1 and current official 2.1.4 both terminated the isolated NOP probe with SIGILL in the restricted local sandbox. Unicorn 2.1.4 passed the same NOP/instruction-loop probe and all 513 tests on the authorized ordinary ARM64 host; the dependency is now pinned to that tested release. The isolated firmware parent reports native emulation as unavailable or incomplete when its child fails or times out. No native crash escapes to the firmware parent. This is an observed execution-environment limitation, not a firmware/device result or a claim that 2.1.4 fixes sandbox compatibility. The official release describes ARM64 distribution and PC guarantees: [upstream release](https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4), [PyPI](https://pypi.org/project/unicorn/2.1.4/).
 
 ## Reproduce
 

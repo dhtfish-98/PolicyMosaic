@@ -1,6 +1,6 @@
 {
   "review_date": "2026-10-02",
-  "scope": "Every current Python module inventoried and parsed. Regex and ordinary decision graph implementations replaced and checked on owned finite languages/decisions; contextual entitlement/inline-policy helpers and complete formatting rewrite remain OPEN.",
+  "scope": "Every current Python module inventoried and parsed. Regex, ordinary decisions, direct Boolean graph reduction, serial contraction and local path traversal replaced and checked on finite independent cases; contextual/metanode/remaining helper and formatting rewrite OPEN.",
   "files": [
     {
       "path": "src/policymosaic/__init__.py",
@@ -12,8 +12,8 @@
     },
     {
       "path": "src/policymosaic/decision_graph.py",
-      "sha256": "6ff03d9d13a716e50ada2d490abe25107bfb6fa94af2564b84b025d53851b1c0",
-      "lines": 248,
+      "sha256": "c46b84f44522dcf86b48ddad27a7be548afc57a9029987eeb8aa3ea25a32a832",
+      "lines": 254,
       "functions": 11,
       "classes": 5,
       "review": "New immutable per-analysis ordinary decision compiler preserving branch polarity and terminal modifiers; independent raw-byte and emitted-form checks. Entitlement/inline policy remain explicitly contextual and use legacy reducer."
@@ -75,6 +75,14 @@
       "review": "Rewritten layout, snapshot CLI, node validation, ordinary decision integration, report/compiler publication; inherited layout dialect retained."
     },
     {
+      "path": "src/policymosaic/reduction.py",
+      "sha256": "1bb3c14452c69c3af91b4a462ea0b63540355cc492bd0a66f81fd0cc5b9d815b",
+      "lines": 220,
+      "functions": 6,
+      "classes": 0,
+      "review": "New local finite iterative path enumeration, atomic serial contraction and bottom-up Boolean outcome graph compiler; independent adjacency action-set checks. Contextual binding semantics remain OPEN."
+    },
+    {
       "path": "src/policymosaic/regex_bytecode.py",
       "sha256": "8b8e60a951a3a0669fcd6e2a08e0410568ac1a509de8ecdecdd1c6fb269a1622",
       "lines": 102,
@@ -92,11 +100,11 @@
     },
     {
       "path": "src/policymosaic/rule_graph.py",
-      "sha256": "95ea23dc081972b0425eb95975be8d85725a20ba81153c6a62ceb242d875971c",
-      "lines": 2180,
+      "sha256": "1bc574496ae99a598596d9af6f34dc0911bf7646c994c21b364cd701ffb2ad2d",
+      "lines": 2071,
       "functions": 142,
       "classes": 8,
-      "review": "Node-table linking/C literals and three execution defects repaired. Contextual operation reduction and direct helper APIs with work/expansion guards retain upstream semantics; complete rewrite OPEN."
+      "review": "Input records and C literals repaired. Direct Boolean reduction, serial merge and path enumeration delegate to new finite local core; contextual/metanode/parallel helpers and full formatting remain OPEN."
     },
     {
       "path": "src/policymosaic/safety.py",
@@ -131,7 +139,7 @@
       "review": "Packaging file-mode preservation reviewed; no user-input execution or network access."
     }
   ],
-  "module_count": 16,
+  "module_count": 17,
   "upstream_commit": "3dc6582f7f7d137adaa115f635eb5fc8e8da91f5",
   "upstream_tree": "1cac93e4419f6de08e6a094cfe2c530dea897696",
   "original_archive_files_verified_unchanged": 38

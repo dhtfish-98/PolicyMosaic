@@ -182,6 +182,12 @@ def compile_decisions(root, default):
             if branch.match_offset != branch.match.offset or branch.unmatch_offset != branch.unmatch.offset:
                 raise PolicyFormatError('decision branch references do not match their records')
             contextual |= branch.filter_id in (30,31,32,160)
+            # A catalog-converted omitted built-in is presentation state, not an
+            # ordinary predicate. Preserve its attributed compatibility path.
+            if branch.argument == '###$$$***':
+                from policymosaic.filter_catalog import Filters
+                entry = Filters.get(branch.filter_id)
+                contextual |= bool(entry and entry['arg_process_fn'] == 'get_filter_arg_regex_by_id')
             pending.extend([(branch.unmatch,False,depth+1),(branch.match,False,depth+1)])
     if contextual: return None
     algebra, decisions = _Conditions(), {}
