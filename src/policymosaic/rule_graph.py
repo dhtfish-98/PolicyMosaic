@@ -1716,7 +1716,7 @@ class mosaic_ReducedGraph:
         _name_boundary.attributes(mosaic_self_ed0dc5b)['remove_edge_by_vertices'](mosaic_v_bb9d1ed, mosaic_n_172a2d2)
         mosaic_replace_occurred = False
         _name_boundary.attributes(mosaic_self_ed0dc5b)['replace_vertice_in_edge_start'](mosaic_n_172a2d2, mosaic_new_vertice_39c8b78)
-        _name_boundary.attributes(mosaic_self_ed0dc5b)['replace_vertice_in_edge_end'](e, mosaic_new_vertice_39c8b78)
+        _name_boundary.attributes(mosaic_self_ed0dc5b)['replace_vertice_in_edge_end'](mosaic_v_bb9d1ed, mosaic_new_vertice_39c8b78)
         _name_boundary.attributes(mosaic_self_ed0dc5b)['replace_vertice_in_single_vertices'](mosaic_v_bb9d1ed, mosaic_new_vertice_39c8b78)
         _name_boundary.attributes(mosaic_self_ed0dc5b)['replace_vertice_in_single_vertices'](mosaic_n_172a2d2, mosaic_new_vertice_39c8b78)
         _name_boundary.attributes(mosaic_self_ed0dc5b)['remove_vertice'](mosaic_v_bb9d1ed)
@@ -2153,12 +2153,12 @@ def mosaic_reduce_operation_node_graph(mosaic_g_d317962):
             mosaic_c_idx_3280481 = checked_add(mosaic_c_idx_3280481, 1)
             if mosaic_c_idx_3280481 >= mosaic_l_7ba3e38:
                 break
-            mosaic_rn_35364de = _name_boundary.attributes(mosaic_rg_6404a7f)['get_vertice_by_value'](mosaic_g_d317962.keys()[mosaic_c_idx_3280481])
+            mosaic_rn_35364de = _name_boundary.attributes(mosaic_rg_6404a7f)['get_vertice_by_value'](list(mosaic_g_d317962)[mosaic_c_idx_3280481])
             if not mosaic_re.search('entitlement-value', str(mosaic_rn_35364de)):
                 break
             mosaic_prevs_rv_bb83844 = _name_boundary.attributes(mosaic_rg_6404a7f)['get_prev_vertices'](mosaic_rv_ce0f472)
             mosaic_prevs_rn_4a70d25 = _name_boundary.attributes(mosaic_rg_6404a7f)['get_prev_vertices'](mosaic_rn_35364de)
-            if sorted(mosaic_prevs_rv_bb83844) != sorted(mosaic_prevs_rn_4a70d25):
+            if set(mosaic_prevs_rv_bb83844) != set(mosaic_prevs_rn_4a70d25):
                 continue
             for mosaic_pn_82b7ce7 in mosaic_prevs_rn_4a70d25:
                 analysis_step()

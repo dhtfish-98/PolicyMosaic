@@ -1,8 +1,8 @@
 {
-  "release": "1.0.4",
+  "release": "1.0.5",
   "date": "2026-10-02",
   "python": "3.12.13",
-  "current_tests": 466,
+  "current_tests": 491,
   "retained_contracts": 40,
   "current_boundary_cases": 111,
   "source_observations": 956,
@@ -13,13 +13,17 @@
     {
       "fixture": 0,
       "mode": "scheme",
-      "sha256": "1ceb4142be0546dfa4262207887cd69b4196b7d45c456aa15feae15c2c7a9840",
+      "original_sha256": "1ceb4142be0546dfa4262207887cd69b4196b7d45c456aa15feae15c2c7a9840",
+      "sha256": "0515fda1e2e4ea257442c08b8e13ce42c3a138b7fda1dc73e8507cd20131bb6b",
       "bytes": 63,
-      "status": "PASS"
+      "status": "EXACT_MODIFIER_ORDER_CHANGE",
+      "semantic_evidence": "independent terminal-form parser identifies same action/operation/modifiers; action matches raw table terminals",
+      "actual_sbpl_engine": "OPEN"
     },
     {
       "fixture": 0,
       "mode": "c",
+      "original_sha256": "7c4e737b58f17b00aadc15188a0225fff9719cb78587f3dfe663f0f9cf10c9fa",
       "sha256": "7c4e737b58f17b00aadc15188a0225fff9719cb78587f3dfe663f0f9cf10c9fa",
       "bytes": 16454,
       "status": "PASS"
@@ -27,6 +31,7 @@
     {
       "fixture": 1,
       "mode": "scheme",
+      "original_sha256": "4fda255be13375e7a3760ee382ac433d7e3b7a8ecd84e24b4dbb82849ec9c945",
       "sha256": "4fda255be13375e7a3760ee382ac433d7e3b7a8ecd84e24b4dbb82849ec9c945",
       "bytes": 63,
       "status": "PASS"
@@ -34,6 +39,7 @@
     {
       "fixture": 1,
       "mode": "c",
+      "original_sha256": "09c3069221cade551c23e8dbccda118762931f9cf7409b5b35bc380c7623c23a",
       "sha256": "09c3069221cade551c23e8dbccda118762931f9cf7409b5b35bc380c7623c23a",
       "bytes": 16446,
       "status": "PASS"
@@ -41,6 +47,7 @@
     {
       "fixture": 2,
       "mode": "scheme",
+      "original_sha256": "02b88f63bea8c3fc658afc9f2f410bebb48a565187cf046d95ec4f29d784a8f2",
       "sha256": "02b88f63bea8c3fc658afc9f2f410bebb48a565187cf046d95ec4f29d784a8f2",
       "bytes": 84,
       "status": "PASS"
@@ -48,6 +55,7 @@
     {
       "fixture": 2,
       "mode": "c",
+      "original_sha256": "c1cbf6908065a5fba9a86c276df422a6d3f225f03762a14c034d43d16f0960a0",
       "sha256": "c1cbf6908065a5fba9a86c276df422a6d3f225f03762a14c034d43d16f0960a0",
       "bytes": 16606,
       "status": "PASS"
@@ -55,13 +63,17 @@
     {
       "fixture": 3,
       "mode": "scheme",
-      "sha256": "1ceb4142be0546dfa4262207887cd69b4196b7d45c456aa15feae15c2c7a9840",
+      "original_sha256": "1ceb4142be0546dfa4262207887cd69b4196b7d45c456aa15feae15c2c7a9840",
+      "sha256": "0515fda1e2e4ea257442c08b8e13ce42c3a138b7fda1dc73e8507cd20131bb6b",
       "bytes": 63,
-      "status": "PASS"
+      "status": "EXACT_MODIFIER_ORDER_CHANGE",
+      "semantic_evidence": "independent terminal-form parser identifies same action/operation/modifiers; action matches raw table terminals",
+      "actual_sbpl_engine": "OPEN"
     },
     {
       "fixture": 3,
       "mode": "c",
+      "original_sha256": "7c4e737b58f17b00aadc15188a0225fff9719cb78587f3dfe663f0f9cf10c9fa",
       "sha256": "7c4e737b58f17b00aadc15188a0225fff9719cb78587f3dfe663f0f9cf10c9fa",
       "bytes": 16454,
       "status": "PASS"
@@ -75,11 +87,12 @@
     "filetype": 6,
     "status": "PASS",
     "generated_binary_executed": false,
-    "historical_main_link_failure_corrected": true
+    "historical_main_link_failure_corrected": true,
+    "observed_release": "1.0.2"
   },
   "native_environment": {
     "restricted_sandbox_probe": "2.0.1.post1 and 2.1.4: SIGILL (-4) in isolated child",
-    "ordinary_authorized_host_probe": "2.1.4: NOP/instruction-loop limits and all 466 tests PASS",
+    "ordinary_authorized_host_probe": "2.1.4: NOP/instruction-loop limits and all 491 tests PASS",
     "real_firmware": "OPEN",
     "dependency": "unicorn==2.1.4",
     "official_release": "https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4",
@@ -88,11 +101,11 @@
     "parent_failure": "Explicit native emulation unavailable/incomplete; failure/timeouts remain isolated"
   },
   "source_audit": {
-    "modules": 15,
+    "modules": 16,
     "manifest": "SOURCE_AUDIT.json"
   },
   "OPEN": [
-    "Complete inherited operation graph and SBPL/XML formatting semantic rewrite; actual SBPL regex compiler/runtime and real profile corpus coverage",
+    "Complete contextual entitlement/inline-policy graph, inherited helper APIs and SBPL/XML formatting semantic rewrite; actual SBPL regex compiler/runtime and real profile corpus coverage",
     "Concurrent direct graph library calls",
     "Actual ipsw firmware download/disassembly/full extraction and real device/runtime policy",
     "Applicant authorization, identity, organization and actual CVP-affected legitimate task"
@@ -108,5 +121,19 @@
     "character_class_byte_observations": 5888,
     "parallel_owned_calls": 256,
     "target_sbpl_engine": "OPEN"
+  },
+  "decision_language_cases": 25,
+  "decision_semantics": {
+    "implementation": "immutable per-analysis conditions preserving original branch polarity and terminal outcomes",
+    "owned_dags": 7,
+    "seeded_dags": 100,
+    "independent_condition_assignments": 6132,
+    "each_assignment_checked": [
+      "raw-byte traversal versus compiled condition",
+      "raw-byte traversal versus generated report forms"
+    ],
+    "shared_source_parallel_calls": 32,
+    "contextual_entitlement_and_inline_policy": "retained attributed reducer; OPEN",
+    "actual_sbpl_engine": "OPEN"
   }
 }

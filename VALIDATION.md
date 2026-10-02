@@ -1,6 +1,14 @@
-# Current validation — 1.0.4
+# Current validation — 1.0.5
 
 Date: 2026-10-02. Python 3.12.13, macOS ARM64.
+
+## Ordinary decision rewrite
+
+Ordinary operation DAGs compile through immutable conditions equivalent to `if predicate then matched else unmatched`. Branches are never swapped or negated in source nodes. Terminal action, rendered modifiers and raw terminal identity are retained for each outcome, including outcomes with the same action but different modifiers. Conditions simplify only through exact Boolean identities. Serialization emits action, operation, modifiers and conditions in that order.
+
+An independent raw-byte branch walker and separate emitted-form interpreter check **6,132 condition assignments** across 7 owned and 100 fixed-seed DAGs. Each assignment checks both the compiled expression and emitted report against the raw record decision. Additional tests check actual CLI unconditional outcomes, modifier preservation, shared-source immutability in 32 concurrent calls, missing/cyclic/deep graphs, conversion errors and expression budgets. This is finite ordinary Boolean evidence; it does not establish actual SBPL evaluation or contextual variable binding.
+
+Entitlement filter IDs 30/31/32/160 and inline policy references return a contextual marker and retain the attributed reducer. Three concrete legacy execution defects are repaired: an undefined variable in the single-next path, Python 3 dictionary-key indexing and sorting incomparable node objects. These repairs do not establish contextual reduction equivalence. Ordinary condition compilation limits node count to 4,096, depth to 128, condition/outcome table counts to 65,536 and conservative expansion/predicate data to 16 MiB within the existing work budget.
 
 ## Regex semantic rewrite
 
@@ -12,11 +20,11 @@ Canonical expression spelling may change while finite owned language equivalence
 
 ## Evidence
 
-- **466 tests passed**: 40 retained contracts plus 111 boundary/process/format tests and 315 regex language/boundary tests. Tests use owned finite binary fixtures; they do not query a device or download firmware.
+- **491 tests passed**: 40 retained contracts plus 111 boundary/process/format tests, 315 regex language/boundary tests and 25 decision language/boundary tests. Tests use owned finite binary fixtures; they do not query a device or download firmware.
 - Fixed upstream archive: commit `3dc6582f7f7d137adaa115f635eb5fc8e8da91f5`, tree `1cac93e4419f6de08e6a094cfe2c530dea897696`. The archive's original files are checked separately from decoder outputs/logs.
 - **956 deterministic observations**: 927 equal; 29 exact checked changes. Those changes are 20 incomplete/unknown header cases, 8 incomplete/malformed string cases, and one helper result missing its output path. Every other observation must match; the comparison does not blanket-ignore exceptions.
-- **8 normal SBPL/C reports** independently compared byte for byte against fixed upstream: single profiles, terminal actions, a nonterminal graph and a normal bundle. Every compared report matches. These are finite examples, not coverage of all policy expressions.
-- Current macOS clang successfully generated a **50,208-byte 64-bit Mach-O dynamic library** for the owned minimal profile. Header and file type were verified; the resulting binary was **not executed**.
+- **8 normal SBPL/C reports** independently compared against fixed upstream: 6 are byte-identical; 2 have the exact checked modifier ordering change `(deny (with no-report) file-read*)` to `(deny file-read* (with no-report))`. The persistent report gate accepts only these exact original/current bytes. An independent terminal-form parser identifies the same action, operation and modifier in each old/new report, and checks the action against the raw terminal table. This does not validate target SBPL compiler/runtime behavior. These are finite examples, not coverage of all policy expressions.
+- The 1.0.2 maintenance gate using macOS clang successfully generated a **50,208-byte 64-bit Mach-O dynamic library** for the owned minimal profile. Header and file type were verified; the resulting binary was **not executed**.
 - Actual child-process tests cover exit failure, bounded stdout, invalid UTF-8, deadlines and a parent exiting while a descendant holds its pipe open.
 - CLI tests cover all 40 short-input boundaries of the owned profile, normal SBPL/C output, bundle stride, directory/FIFO/symlink rejection, output traversal and collisions, existing files, graph cycles/references, duplicate/injectable operation labels, and input immutability.
 - Bytecode tests cover operands, malformed UTF-8, string variables/concat/reset, cyclic jump walks, independent regex state, output/work/depth limits and already-seen shared nodes. C literal tests cover control bytes, quotes and modifier payloads.
@@ -41,7 +49,7 @@ Canonical expression spelling may change while finite owned language equivalence
 
 The legacy string interpreter silently returned an empty result for the listed incomplete programs; these now fail explicitly. Unknown headers and regex opcodes, zero-length underflow, out-of-range references and graph cycles also fail. The current profile listing uses the computed row stride rather than the old hard-coded 376-byte stride. Fresh per-operation graph copies avoid mutation leaking into another operation. Conversion state uses a scoped context instead of incorrect/shared `base_addr` assignments.
 
-The former Unicorn 2.0.1.post1 and current official 2.1.4 both terminated the isolated NOP probe with SIGILL in the restricted local sandbox. Unicorn 2.1.4 passed the same NOP/instruction-loop probe and all 466 tests on the authorized ordinary ARM64 host; the dependency is now pinned to that tested release. The isolated firmware parent reports native emulation as unavailable or incomplete when its child fails or times out. No native crash escapes to the firmware parent. This is an observed execution-environment limitation, not a firmware/device result or a claim that 2.1.4 fixes sandbox compatibility. The official release describes ARM64 distribution and PC guarantees: [upstream release](https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4), [PyPI](https://pypi.org/project/unicorn/2.1.4/).
+The former Unicorn 2.0.1.post1 and current official 2.1.4 both terminated the isolated NOP probe with SIGILL in the restricted local sandbox. Unicorn 2.1.4 passed the same NOP/instruction-loop probe and all 491 tests on the authorized ordinary ARM64 host; the dependency is now pinned to that tested release. The isolated firmware parent reports native emulation as unavailable or incomplete when its child fails or times out. No native crash escapes to the firmware parent. This is an observed execution-environment limitation, not a firmware/device result or a claim that 2.1.4 fixes sandbox compatibility. The official release describes ARM64 distribution and PC guarantees: [upstream release](https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4), [PyPI](https://pypi.org/project/unicorn/2.1.4/).
 
 ## Reproduce
 
@@ -50,6 +58,7 @@ python -m pip install -r requirements-test.lock
 python -m pip install -e .
 python -m pytest -q -p no:cacheprovider
 python checks/compare_upstream.py --upstream-root /path/to/commit-3dc6582
+python checks/compare_reports.py --upstream-root /path/to/commit-3dc6582
 python -m build
 python -m venv .consumer
 .consumer/bin/python -m pip install dist/*.whl
@@ -58,8 +67,8 @@ python -m venv .consumer
 
 ## OPEN
 
-- Complete operation graph semantic rewrite, every inherited formatting rule and real profile corpus coverage remain unfinished. Added limits do not prove policy equivalence for all inputs or comprehensively escape/redact every SBPL/XML presentation path.
-- Retained operation graph helpers contain legacy module-level state. Regex analyses now use per-instance graphs and per-analysis expression algebra; 256 concurrent owned regex calls passed. CLI work runs in one process with per-operation reset/copies; concurrent direct library graph calls are not established safe.
+- Complete contextual entitlement/inline-policy graph and inherited helper API rewrite, every inherited formatting rule and real profile corpus coverage remain unfinished. Added limits do not prove policy equivalence for all inputs or comprehensively escape/redact every SBPL/XML presentation path.
+- Retained operation graph helpers contain legacy module-level state. Regex analyses now use per-instance graphs and per-analysis expression algebra; 256 concurrent owned regex calls and 32 shared-source ordinary decision compilations passed. CLI work runs in one process with per-operation reset/copies; concurrent direct library graph calls are not established safe.
 - The work deadline is cooperative. Byte limits do not impose a wall-clock timeout on an arbitrary caller-supplied library stream. The CLI uses finite snapshots; independent helper process deadlines are enforced separately.
 - Actual `ipsw` download/disassembly, kernel layout correctness, full firmware extraction, generated-Mach-O behavior, signatures and real device/sandbox runtime results remain unverified.
 - External helper executables and their downloads are not attested by this package. Native dependency compatibility remains host-specific.

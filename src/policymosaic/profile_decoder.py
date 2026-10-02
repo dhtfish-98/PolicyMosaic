@@ -301,6 +301,11 @@ def mosaic_process_profile(infile, outfname, sb_ops, ops_to_reverse, op_table, o
             fresh_nodes = {item.offset: item for item in copy.deepcopy(operation_nodes)}
             node = fresh_nodes[offset]
             fresh_default = fresh_nodes[op_table[0]]
+            from policymosaic.decision_graph import compile_decisions
+            decision_plan = compile_decisions(node, fresh_default)
+            if decision_plan is not None:
+                decision_plan.emit(operation, output)
+                continue
             mosaic_operation_node.mosaic_processed_nodes.clear()
             graph = mosaic_operation_node.build_operation_node_graph(node, fresh_default)
             if graph:
