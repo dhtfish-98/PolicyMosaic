@@ -1,8 +1,8 @@
 {
-  "release": "1.0.3",
+  "release": "1.0.4",
   "date": "2026-10-02",
   "python": "3.12.13",
-  "current_tests": 151,
+  "current_tests": 466,
   "retained_contracts": 40,
   "current_boundary_cases": 111,
   "source_observations": 956,
@@ -79,7 +79,7 @@
   },
   "native_environment": {
     "restricted_sandbox_probe": "2.0.1.post1 and 2.1.4: SIGILL (-4) in isolated child",
-    "ordinary_authorized_host_probe": "2.1.4: NOP/instruction-loop limits and all 151 tests PASS",
+    "ordinary_authorized_host_probe": "2.1.4: NOP/instruction-loop limits and all 466 tests PASS",
     "real_firmware": "OPEN",
     "dependency": "unicorn==2.1.4",
     "official_release": "https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4",
@@ -92,9 +92,21 @@
     "manifest": "SOURCE_AUDIT.json"
   },
   "OPEN": [
-    "Complete inherited operation/regex graph and SBPL/XML formatting semantic rewrite",
+    "Complete inherited operation graph and SBPL/XML formatting semantic rewrite; actual SBPL regex compiler/runtime and real profile corpus coverage",
     "Concurrent direct graph library calls",
     "Actual ipsw firmware download/disassembly/full extraction and real device/runtime policy",
     "Applicant authorization, identity, organization and actual CVP-affected legitimate task"
-  ]
+  ],
+  "regex_language_cases": 315,
+  "regex_semantics": {
+    "implementation": "epsilon closure plus immutable expression DAG/GNFA state elimination",
+    "independent_language_observations": 21024,
+    "owned_nfas": 12,
+    "seeded_nfas": 100,
+    "graph_and_bytecode_word_observations": 14112,
+    "literal_byte_accept_reject_observations": 1024,
+    "character_class_byte_observations": 5888,
+    "parallel_owned_calls": 256,
+    "target_sbpl_engine": "OPEN"
+  }
 }

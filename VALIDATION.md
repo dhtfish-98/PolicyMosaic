@@ -1,10 +1,18 @@
-# Current validation — 1.0.3
+# Current validation — 1.0.4
 
 Date: 2026-10-02. Python 3.12.13, macOS ARM64.
 
+## Regex semantic rewrite
+
+The current regex graph implementation replaces the inherited reducer with deterministic epsilon closure, per-analysis immutable expression DAGs and GNFA state elimination over frozen edge snapshots. All parallel self-loops are unioned, an initial accepting empty path is retained, and transitions between accepting states are eliminated without unbounded traversal. Literal opcode bytes are data, including regex operators; character-class intervals are checked and escaped. End-marker padding, duplicate node IDs and canonical references fail explicitly. Quoted regex report data round-trips through its string framing; actual SBPL compiler/runtime interpretation remains OPEN.
+
+**21,024 independent language observations**: 14,112 words across 12 owned and 100 fixed-seed NFAs, each tested as graph records and actual assembled bytecode; 1,024 acceptance/rejection assertions for all 256 literal bytes; and 5,888 byte checks for 23 positive/excluded character classes. The reference executes configuration sets and does not use regex elimination. Python regular-expression matching is used only on these owned finite test cases, not on supplied profiles during analysis.
+
+Canonical expression spelling may change while finite owned language equivalence is checked. Regex graphs permit 4,096 records, up to 65,536 canonical edges/expression DAG nodes, depth 128 and conservative 16 MiB expansion, inside the existing work deadline. The regex collection CLI also limits count to 4,096 and cumulative output to 64 MiB. These limits do not establish all real-firmware dialects or general policy equivalence.
+
 ## Evidence
 
-- **151 tests passed**: 40 retained contracts plus 111 current boundary/process/format tests. Tests use owned finite binary fixtures; they do not query a device or download firmware.
+- **466 tests passed**: 40 retained contracts plus 111 boundary/process/format tests and 315 regex language/boundary tests. Tests use owned finite binary fixtures; they do not query a device or download firmware.
 - Fixed upstream archive: commit `3dc6582f7f7d137adaa115f635eb5fc8e8da91f5`, tree `1cac93e4419f6de08e6a094cfe2c530dea897696`. The archive's original files are checked separately from decoder outputs/logs.
 - **956 deterministic observations**: 927 equal; 29 exact checked changes. Those changes are 20 incomplete/unknown header cases, 8 incomplete/malformed string cases, and one helper result missing its output path. Every other observation must match; the comparison does not blanket-ignore exceptions.
 - **8 normal SBPL/C reports** independently compared byte for byte against fixed upstream: single profiles, terminal actions, a nonterminal graph and a normal bundle. Every compared report matches. These are finite examples, not coverage of all policy expressions.
@@ -33,7 +41,7 @@ Date: 2026-10-02. Python 3.12.13, macOS ARM64.
 
 The legacy string interpreter silently returned an empty result for the listed incomplete programs; these now fail explicitly. Unknown headers and regex opcodes, zero-length underflow, out-of-range references and graph cycles also fail. The current profile listing uses the computed row stride rather than the old hard-coded 376-byte stride. Fresh per-operation graph copies avoid mutation leaking into another operation. Conversion state uses a scoped context instead of incorrect/shared `base_addr` assignments.
 
-The former Unicorn 2.0.1.post1 and current official 2.1.4 both terminated the isolated NOP probe with SIGILL in the restricted local sandbox. Unicorn 2.1.4 passed the same NOP/instruction-loop probe and all 151 tests on the authorized ordinary ARM64 host; the dependency is now pinned to that tested release. The isolated firmware parent reports native emulation as unavailable or incomplete when its child fails or times out. No native crash escapes to the firmware parent. This is an observed execution-environment limitation, not a firmware/device result or a claim that 2.1.4 fixes sandbox compatibility. The official release describes ARM64 distribution and PC guarantees: [upstream release](https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4), [PyPI](https://pypi.org/project/unicorn/2.1.4/).
+The former Unicorn 2.0.1.post1 and current official 2.1.4 both terminated the isolated NOP probe with SIGILL in the restricted local sandbox. Unicorn 2.1.4 passed the same NOP/instruction-loop probe and all 466 tests on the authorized ordinary ARM64 host; the dependency is now pinned to that tested release. The isolated firmware parent reports native emulation as unavailable or incomplete when its child fails or times out. No native crash escapes to the firmware parent. This is an observed execution-environment limitation, not a firmware/device result or a claim that 2.1.4 fixes sandbox compatibility. The official release describes ARM64 distribution and PC guarantees: [upstream release](https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4), [PyPI](https://pypi.org/project/unicorn/2.1.4/).
 
 ## Reproduce
 
@@ -50,8 +58,8 @@ python -m venv .consumer
 
 ## OPEN
 
-- Complete operation/regex graph semantic rewrite, every inherited formatting rule and real profile corpus coverage remain unfinished. Added limits do not prove policy equivalence for all inputs or comprehensively escape/redact every SBPL/XML presentation path.
-- Retained graph helpers contain legacy module-level state. CLI work runs in one process with per-operation reset/copies; concurrent direct library graph calls are not established safe.
+- Complete operation graph semantic rewrite, every inherited formatting rule and real profile corpus coverage remain unfinished. Added limits do not prove policy equivalence for all inputs or comprehensively escape/redact every SBPL/XML presentation path.
+- Retained operation graph helpers contain legacy module-level state. Regex analyses now use per-instance graphs and per-analysis expression algebra; 256 concurrent owned regex calls passed. CLI work runs in one process with per-operation reset/copies; concurrent direct library graph calls are not established safe.
 - The work deadline is cooperative. Byte limits do not impose a wall-clock timeout on an arbitrary caller-supplied library stream. The CLI uses finite snapshots; independent helper process deadlines are enforced separately.
 - Actual `ipsw` download/disassembly, kernel layout correctness, full firmware extraction, generated-Mach-O behavior, signatures and real device/sandbox runtime results remain unverified.
 - External helper executables and their downloads are not attested by this package. Native dependency compatibility remains host-specific.

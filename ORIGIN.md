@@ -11,10 +11,12 @@ The original algorithms and project history belong to their upstream authors. Th
 
 Public CLI flags, structured data keys, enum identifiers, Python framework hooks, legacy external API aliases, resource formats and compatibility labels are deliberate naming exceptions. The compatibility module provides separate wire/display labels; it is not a hidden copy of the old implementation.
 
-## Maintenance release 1.0.3
+## Maintenance release 1.0.4
 
-The current derivative substantively replaces the profile input/report pipeline, string and regex record interpreters, scoped filter conversion and optional firmware execution workflow. Operation and regex graph reduction algorithms retain upstream lineage; this release adds resource guards and replaces selected reference/walk/state routines. It does not claim that every inherited graph or formatting algorithm has been independently rewritten.
+The current derivative substantively replaces the profile input/report pipeline, string and regex record interpreters, scoped filter conversion and optional firmware execution workflow. Operation graph reduction algorithms retain upstream lineage and resource guards. The regex graph now uses a newly implemented epsilon-closure and immutable-expression state-elimination pipeline, preserving the documented input dialect and public entry points. It does not claim that every inherited graph or formatting algorithm has been independently rewritten.
 
 The package also adds owned malformed-input/process fixtures, an isolated native-emulation worker and exact intentional-change comparison evidence. Original catalogs and license remain. Historical naming maps describe the earlier release and do not supersede current source or imply independent authorship.
 
-Release 1.0.3 additionally pins the verified official Unicorn 2.1.4 dependency and makes native-child failure/timeouts explicit. This does not close the inherited graph-algorithm or real-firmware OPEN scope.
+Release 1.0.3 pinned the verified official Unicorn 2.1.4 dependency and made native-child failure/timeouts explicit. That phase did not close the inherited graph-algorithm or real-firmware OPEN scope.
+
+Release 1.0.4 replaces the complete regex graph reduction/combination implementation. Independent owned NFA configuration-set checks cover both graph records and assembled bytecode; this is finite semantic evidence, not proof of all real profiles or SBPL engine behavior.

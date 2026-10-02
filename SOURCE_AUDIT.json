@@ -1,6 +1,6 @@
 {
   "review_date": "2026-10-02",
-  "scope": "Every current Python module inventoried and parsed; capabilities/changed control paths reviewed. Complete inherited graph/formatter semantic rewrite remains OPEN.",
+  "scope": "Every current Python module inventoried and parsed. Regex graph semantic implementation replaced and checked on owned finite languages; complete operation graph/formatter semantic rewrite remains OPEN.",
   "files": [
     {
       "path": "src/policymosaic/__init__.py",
@@ -28,11 +28,11 @@
     },
     {
       "path": "src/policymosaic/filter_decoder.py",
-      "sha256": "5e9034532e102d2a436465e88b32e3027ce7f9609b848f5c4dfd4dafe4712679",
-      "lines": 364,
+      "sha256": "a7201e41104b79179889ea01b856ae6dc4afdbaf8fed437f69a0223c063ad331",
+      "lines": 374,
       "functions": 40,
       "classes": 0,
-      "review": "Scoped conversion context and checked string/network/regex references rewritten; numeric name catalogs retained."
+      "review": "Scoped conversion context, checked string/network/regex references and quoted regex data framing rewritten; remaining numeric catalogs and SBPL formatting paths require review."
     },
     {
       "path": "src/policymosaic/firmware_helper.py",
@@ -76,11 +76,11 @@
     },
     {
       "path": "src/policymosaic/regex_graph.py",
-      "sha256": "93145e8d7e8d0f3b42b6d26fbc1107c5c87ae2c31412357e0cd0f4dd7bdbaf46",
-      "lines": 555,
-      "functions": 39,
-      "classes": 2,
-      "review": "Per-instance state and iterative jump walks rewritten; guarded attributed canonical-reduction semantics remain OPEN."
+      "sha256": "1cdf2042d2544efd4ced008636d7ff065b35180750f9b73bc8c330f4e8a1b9b8",
+      "lines": 524,
+      "functions": 52,
+      "classes": 4,
+      "review": "Complete NFA epsilon closure/canonical state elimination/combination rewritten with immutable per-analysis expression DAG and finite independent byte-language checks; real SBPL runtime remains OPEN."
     },
     {
       "path": "src/policymosaic/rule_graph.py",

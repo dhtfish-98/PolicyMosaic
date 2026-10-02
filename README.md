@@ -2,9 +2,9 @@
 
 PolicyMosaic inspects authorized local Apple sandbox profile bytes and produces an attributed SBPL or C representation for defensive policy review. It is derived from [sandblaster_26](https://github.com/chensokolovsky/sandblaster_26) at the pinned commit in [ORIGIN.md](ORIGIN.md); upstream authorship and the BSD-3 license are retained.
 
-## Current maintenance release: 1.0.3
+## Current maintenance release: 1.0.4
 
-This release rewrites profile input/layout handling, string and regex bytecode records, filter conversion context, report publication, compiler invocation and optional firmware-helper execution. The inherited operation/regex graph reducers receive explicit work and expansion guards, independent regex state and finite graph walks. Their complete semantic rewrite and real firmware/device validation remain **OPEN**.
+This release rewrites profile input/layout handling, string and regex bytecode records, regex NFA reduction, filter conversion context, report publication, compiler invocation and optional firmware-helper execution. The new regex implementation has 21,024 independent owned language observations across graph and bytecode inputs. Complete inherited operation-graph and SBPL/XML formatting semantic rewrite, target SBPL regex behavior and real firmware/device validation remain **OPEN**.
 
 - Default decoding uses local files and does not make network requests. Package imports no longer create `reverse.log` in the caller's directory.
 - Profile files are copied from a checked regular file into a finite local snapshot (64 MiB). Final symlinks, directories and FIFOs are rejected. Observed changes during reading are rejected; this is not proof of a coherent acquisition from a live device.

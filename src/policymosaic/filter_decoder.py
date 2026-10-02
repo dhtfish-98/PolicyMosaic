@@ -105,11 +105,21 @@ def mosaic_get_filter_arg_regex_by_id(f, regex_id):
     expressions = context['regex_list']
     if type(regex_id) is not int or not 0 <= regex_id < len(expressions):
         raise PolicyFormatError('regex reference outside catalog')
+    if not expressions[regex_id]:
+        raise PolicyFormatError('regex has no representable accepting path')
     result = []
     for expression in expressions[regex_id]:
         if mosaic_re.match(r'^/com\\.apple\\.sandbox\$', expression) and not context['keep_builtin_filters']:
             return '###$$$***'
-        result.append('#"%s"' % expression)
+        from json import dumps
+        from policymosaic.safety import OUTPUT_BYTES, analysis_step
+        size = 2
+        for character in expression:
+            analysis_step()
+            size += 2 if character in '\\"\b\t\n\f\r' else 6 if ord(character) < 32 else len(character.encode('utf-8'))
+            if size > OUTPUT_BYTES:
+                raise PolicyFormatError('quoted regex presentation exceeds limit')
+        result.append('#' + dumps(expression, ensure_ascii=False))
     return ' '.join(result)
 
 @_name_boundary.callable_contract({'f': 'mosaic_f_2ba6d87', 'arg': 'mosaic_arg_3f1bc84'}, 'get_filter_arg_ctl')

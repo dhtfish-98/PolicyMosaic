@@ -5,6 +5,7 @@ import importlib.metadata
 import io
 import json
 import os
+import re
 import struct
 import subprocess
 import sys
@@ -13,12 +14,13 @@ import tempfile
 package=importlib.import_module('policymosaic')
 location=Path(package.__file__).resolve()
 assert 'site-packages' in location.parts,location
-assert importlib.metadata.version('policymosaic')=='1.0.3'
+assert importlib.metadata.version('policymosaic')=='1.0.4'
 from policymosaic.regex_bytecode import mosaic_parse
 from policymosaic.filter_catalog import mosaic_Filters
 from policymosaic.string_bytecode import mosaic_SandboxString
 from policymosaic.profile_decoder import mosaic_parse_profile
 from policymosaic.safety import PolicyFormatError
+from policymosaic.regex_graph import mosaic_parse_regex
 records=[];mosaic_parse(b'\x02.',0,records)
 assert records==[{'pos':-6,'type':'character','value':'[.]'}]
 assert mosaic_Filters.filters
@@ -26,6 +28,12 @@ assert mosaic_SandboxString().parse_byte_string(b'\x40a\x0a',[])==['a']
 try:mosaic_SandboxString().parse_byte_string(b'\x40a',[])
 except PolicyFormatError:pass
 else:raise AssertionError('incomplete installed bytecode accepted')
+expressions=mosaic_parse_regex(b'\0'*6+b'\x2f\x08\0\x02a\x0a\0\0\x25\0')
+assert any(re.fullmatch(expression,'') is not None for expression in expressions)
+assert any(re.fullmatch(expression,'aaa') is not None for expression in expressions)
+assert all(re.fullmatch(expression,'b') is None for expression in expressions)
+expressions=mosaic_parse_regex(b'\0'*6+b'\x02+\x25\0')
+assert len(expressions)==1 and re.fullmatch(expressions[0],'+')
 
 with tempfile.TemporaryDirectory(prefix='policymosaic-consumer-') as folder:
     root=Path(folder)
@@ -52,4 +60,4 @@ with tempfile.TemporaryDirectory(prefix='policymosaic-consumer-') as folder:
     result=subprocess.run([sys.executable,'-I','-m','policymosaic.emulation_worker','--address','4096','--code','1f2003d5','--mode','profile'],cwd=root,env=env,capture_output=True,timeout=5)
     assert result.returncode==0,result.stderr
     assert json.loads(result.stdout)=={'reference':0,'size':0}
-print('PolicyMosaic 1.0.3 installed consumer PASS')
+print('PolicyMosaic 1.0.4 installed consumer PASS')
