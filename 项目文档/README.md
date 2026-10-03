@@ -1,6 +1,8 @@
+> 目录已整理：文档在「项目文档」，构建、缓存与暂存输入在「Build」。从仓库根目录运行 `python3 构建.py --build`；如需使用本文原有源码命令，先运行 `python3 构建.py --stage --ci`，再进入 `Build/源码`。暂存会恢复原输入路径。现有版本和历史验证记录按各自提交理解。
+
 # PolicyMosaic
 
-PolicyMosaic inspects authorized local Apple sandbox profile bytes and produces an attributed SBPL or C representation for defensive policy review. It is derived from [sandblaster_26](https://github.com/chensokolovsky/sandblaster_26) at the pinned commit in [ORIGIN.md](ORIGIN.md); upstream authorship and the BSD-3 license are retained.
+PolicyMosaic inspects authorized local Apple sandbox profile bytes and produces an attributed SBPL or C representation for defensive policy review. It is derived from [sandblaster_26](https://github.com/chensokolovsky/sandblaster_26) at the pinned commit in [ORIGIN.md](<ORIGIN.md>); upstream authorship and the BSD-3 license are retained.
 
 ## Current maintenance release: 1.0.6
 
@@ -34,7 +36,7 @@ The second command explicitly requests an `ipsw` firmware download. Helper outpu
 
 The external tools can perform their own network and disk activity. Process deadlines, captured-output limits and checked local output paths do not establish a network allowlist or bound every disk write performed by `ipsw`. No real firmware collection was downloaded or tested for this release.
 
-See [DEFENSIVE_SCOPE.md](DEFENSIVE_SCOPE.md), [VALIDATION.md](VALIDATION.md) and [SOURCE_AUDIT.json](SOURCE_AUDIT.json) for evidence and remaining work. Historical module/name maps describe the earlier attributed refactoring, not an independent authorship claim.
+See [DEFENSIVE_SCOPE.md](<DEFENSIVE_SCOPE.md>), [VALIDATION.md](<VALIDATION.md>) and [SOURCE_AUDIT.json](<../SOURCE_AUDIT.json>) for evidence and remaining work. Historical module/name maps describe the earlier attributed refactoring, not an independent authorship claim.
 
 ## Development and source comparison
 

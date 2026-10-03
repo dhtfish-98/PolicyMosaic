@@ -1,4 +1,4 @@
-include LICENSE README.md ORIGIN.md VALIDATION.md SYMBOL_MAP.json FILE_MAP.json
+include 项目文档/LICENSE 项目文档/README.md 项目文档/ORIGIN.md 项目文档/VALIDATION.md SYMBOL_MAP.json FILE_MAP.json
 recursive-include src *.py *.json *.config
 recursive-include checks *.py
 include requirements-test.lock DELIVERY_VALIDATION.json
@@ -7,5 +7,20 @@ include .gitignore
 
 
 
-include DEFENSIVE_SCOPE.md CURRENT_VALIDATION.json SOURCE_AUDIT.json
+include 项目文档/DEFENSIVE_SCOPE.md CURRENT_VALIDATION.json SOURCE_AUDIT.json
 include checks/BOUNDARY_CHANGES.json
+
+# Directory layout: canonical docs and source build entry; generated trees are not sdist inputs.
+graft 项目文档
+include 构建.py 构建配置.json
+prune Build/源码
+prune Build/新构建
+prune Build/输出
+prune Build/环境
+prune Build/缓存
+prune Build/中间
+prune Build/临时
+global-exclude __pycache__ *.py[cod] .DS_Store
+
+# Original logical paths exist only in the staged compatibility view.
+include DEFENSIVE_SCOPE.md LICENSE ORIGIN.md README.md VALIDATION.md

@@ -1,0 +1,35 @@
+{
+  "schema": "project-build-layout.v1",
+  "project": "PolicyMosaic",
+  "author": "dhtfish98",
+  "kind": "python",
+  "base_public_commit": "f22d159c00d9a38ac843efde4a0b1f3afcebfb4d",
+  "restored_inputs": [
+    {
+      "original": "DEFENSIVE_SCOPE.md",
+      "stored": "项目文档/DEFENSIVE_SCOPE.md",
+      "sha256": "36345ce695032c84ac203691a9ce8bd4ae604e178a3ce70c6e2e8bc7e51e85e8"
+    },
+    {
+      "original": "LICENSE",
+      "stored": "项目文档/LICENSE",
+      "sha256": "386bb4f93a3afcb7bf8e93cd63752c3f002fe15dde128c73f4f09240e81d89ae"
+    },
+    {
+      "original": "ORIGIN.md",
+      "stored": "项目文档/ORIGIN.md",
+      "sha256": "439f22fe14bb3ba3df427c1409b6a6052ef2ec5681a332c00b3bb2a99c704b61"
+    },
+    {
+      "original": "README.md",
+      "stored": "项目文档/README.md",
+      "sha256": "a0439eaa4f7521ea5984583c853ea4c539b55069965552d12a75659388fe9324"
+    },
+    {
+      "original": "VALIDATION.md",
+      "stored": "项目文档/VALIDATION.md",
+      "sha256": "32b2f1e5b0663b7d94b3931d6e668b28884a3521cb0e1d35ce0d09ad2787a740"
+    }
+  ],
+  "platform_entries": []
+}
