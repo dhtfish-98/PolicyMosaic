@@ -29,4 +29,4 @@ build_py="policymosaic_delivery_build.DeliveryBuild"
 py-modules=["policymosaic_delivery_build"]
 
 [tool.setuptools.data-files]
-"share/policymosaic"=["项目文档/ORIGIN.md","项目文档/DEFENSIVE_SCOPE.md","项目文档/VALIDATION.md","CURRENT_VALIDATION.json","SOURCE_AUDIT.json"]
+"share/policymosaic"=["项目文档/ORIGIN.md","项目文档/DEFENSIVE_SCOPE.md","项目文档/VALIDATION.md","项目文档/CURRENT_VALIDATION.json","项目文档/SOURCE_AUDIT.json"]

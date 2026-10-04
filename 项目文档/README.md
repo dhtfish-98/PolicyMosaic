@@ -36,7 +36,7 @@ The second command explicitly requests an `ipsw` firmware download. Helper outpu
 
 The external tools can perform their own network and disk activity. Process deadlines, captured-output limits and checked local output paths do not establish a network allowlist or bound every disk write performed by `ipsw`. No real firmware collection was downloaded or tested for this release.
 
-See [DEFENSIVE_SCOPE.md](<DEFENSIVE_SCOPE.md>), [VALIDATION.md](<VALIDATION.md>) and [SOURCE_AUDIT.json](<../SOURCE_AUDIT.json>) for evidence and remaining work. Historical module/name maps describe the earlier attributed refactoring, not an independent authorship claim.
+See [DEFENSIVE_SCOPE.md](<DEFENSIVE_SCOPE.md>), [VALIDATION.md](<VALIDATION.md>) and [SOURCE_AUDIT.json](<SOURCE_AUDIT.json>) for evidence and remaining work. Historical module/name maps describe the earlier attributed refactoring, not an independent authorship claim.
 
 ## Development and source comparison
 
