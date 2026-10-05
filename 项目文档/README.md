@@ -4,7 +4,7 @@
 
 PolicyMosaic inspects authorized local Apple sandbox profile bytes and produces an attributed SBPL or C representation for defensive policy review. It is derived from [sandblaster_26](https://github.com/chensokolovsky/sandblaster_26) at the pinned commit in [ORIGIN.md](<ORIGIN.md>); upstream authorship and the BSD-3 license are retained.
 
-## Current maintenance release: 1.0.6
+## Current maintenance release: 1.0.7
 
 This release also replaces direct Boolean graph reduction, serial contraction and path traversal with local finite implementations, checked against raw adjacency for 9,296 assignments. The ordinary decision DAG retains matched/unmatched polarity and terminal modifiers, checked against raw-record traversal and generated report decisions for 6,132 finite assignments. It also rewrites profile input/layout handling, string and regex bytecode records, regex NFA reduction, filter conversion context, report publication, compiler invocation and optional firmware-helper execution. Regex checks contain 21,024 independent owned language observations. Contextual entitlement/inline-policy paths still use the attributed compatibility reducer. Complete inherited helper APIs and SBPL/XML formatting semantic rewrite, target SBPL behavior and real firmware/device validation remain **OPEN**.
 

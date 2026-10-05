@@ -3,7 +3,8 @@ requires=["setuptools==80.10.2", "wheel==0.48.0"]
 build-backend="setuptools.build_meta"
 [project]
 name="policymosaic"
-version="1.0.6"
+version="1.0.7"
+maintainers=[{name="dhtfish98"}]
 description="PolicyMosaic attributed derivative for offline developer analysis"
 readme="项目文档/README.md"
 requires-python=">=3.9"

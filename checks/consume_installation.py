@@ -14,7 +14,7 @@ import tempfile
 package=importlib.import_module('policymosaic')
 location=Path(package.__file__).resolve()
 assert 'site-packages' in location.parts,location
-assert importlib.metadata.version('policymosaic')=='1.0.6'
+assert importlib.metadata.version('policymosaic')=='1.0.7'
 from policymosaic.regex_bytecode import mosaic_parse
 from policymosaic.filter_catalog import mosaic_Filters
 from policymosaic.string_bytecode import mosaic_SandboxString
@@ -81,4 +81,4 @@ with tempfile.TemporaryDirectory(prefix='policymosaic-consumer-') as folder:
     result=subprocess.run([sys.executable,'-I','-m','policymosaic.emulation_worker','--address','4096','--code','1f2003d5','--mode','profile'],cwd=root,env=env,capture_output=True,timeout=5)
     assert result.returncode==0,result.stderr
     assert json.loads(result.stdout)=={'reference':0,'size':0}
-print('PolicyMosaic 1.0.6 installed consumer PASS')
+print('PolicyMosaic 1.0.7 installed consumer PASS')

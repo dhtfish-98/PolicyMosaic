@@ -1,3 +1,5 @@
+> 本页保留 1.0.6 的历史验证记录；1.0.7 的发布验证状态请以对应提交的 GitHub Actions 和 Release 资产为准。
+
 # Current validation — 1.0.6
 
 Date: 2026-10-02. Python 3.12.13, macOS ARM64.
